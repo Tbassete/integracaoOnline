@@ -1,0 +1,25 @@
+dados necessarios: nome, cargo, turno, area e data de admissão
+
+1 topico criação de videos para o processo de integração para cada area (qualidade, eng, prod, proc....). 
+        ser visto um video por tema e marcar como visto.
+            os topicos estão dentro do powerPoint.
+
+2 atualização estatica dos arquivos feitas por mim em primeiro momento.
+
+3 quizz para esses videos de cada area do metodo de multipla escolha.
+    de todos os as perguntas e necessario acertar no minimo 70% das questões.
+        se atingiu, emitir um certificado. com bexigas estourando.
+
+4 avaliação do seriviço do processo de integração.
+
+=====
+
+
+1. ter a visão de todas pessoas treinads de periox a periodo x
+
+2. interface clean e que de o foco nos cursos.
+
+
+======
+
+a entrega deve ser feita todas de juntas, porem devo marcar reuniões a cada conclusão de modulo
