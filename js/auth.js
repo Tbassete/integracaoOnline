@@ -1,0 +1,1 @@
+firebase.auth().languageCode = 'pt-br'
