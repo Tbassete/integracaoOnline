@@ -1,0 +1,20 @@
+{
+    "name": "SapaMega",
+    "short_name": "Sapa",
+    "start_url": "/index.html",
+    "display": "standalone",
+    "background_color": "#2b5797",
+    "theme_color": "#2b5797",
+    "icons": [
+      {
+        "src": "/img/sapamega392.png",
+        "sizes": "392x392",
+        "type": "image/png"
+      },
+      {
+        "src": "/img/sapamega392.png",
+        "sizes": "392x392",
+        "type": "image/png"
+      }
+    ]
+  }
