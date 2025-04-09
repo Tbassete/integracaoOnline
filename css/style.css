@@ -49,11 +49,29 @@ body {
   border: 2px solid var(--blue-deep);
 }
 
+.startHidden{
+  display: none;
+}
+
+
+.transition-item {
+  opacity: 0;
+  height: 0;
+  overflow: hidden;
+  transition: opacity 0.4s ease, height 0.4s ease;
+  display: none;
+}
+
+.transition-item.show {
+  display: block;
+  opacity: 1;
+  height: auto;
+}
 
 /* step 1 */
 #step1{
 
-  /* position: absolute; */
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -149,17 +167,7 @@ body {
     }
   }
 
-  & #containerToggle{
-    padding-top: 100px;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    & p{
-      text-align: center;
-      font-weight: bolder;
-    }
-  }
+
   & #imgsAuthForms{
     display: flex;
     justify-content: center;
@@ -194,6 +202,18 @@ body {
   }
 }
 
+ #containerToggle{
+  padding-top: 100px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  & p{
+    margin-right: 10px;
+    text-align: center;
+    font-weight: bolder;
+  }
+}
 #createWithOthers{
   max-width: 80vw;
   border: 2px solid var(--blue-deep);
@@ -271,20 +291,21 @@ body {
     text-align: left;
     color: var(--red-strong);
   }
-  & #containerToggleNewUser{
-    
-    padding-top: 100px;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    & p{
-      text-align: center;
-      font-weight: bolder;
-    }
+
+}
+ #containerToggleNewUser{
+
+  padding-top: 100px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  & p{
+    margin-right: 10px;
+    text-align: center;
+    font-weight: bolder;
   }
 }
-
 /* fim do step2 */
 #step3{
   
@@ -383,36 +404,36 @@ body {
   animation-delay: 1s;
 }
 
-.white {
+#white {
   position: absolute;
   width: 500px;
   height: 500px;
   border-radius: 50%;
   filter: blur(20px);
-  opacity: 0.4;
+  /* opacity: 0.4; */
   /* background: linear-gradient(to right, #06426727 1%, white); */
   background-color: white;
   top: 45%;
   left: -35%;
   transform: translate(-10%, -10%);
-  opacity: 100;
+  /* opacity: 100; */
   animation-delay: 1s;
   z-index: 0;
   animation: orbit2 20s ease-in-out infinite;
 }
-.white2 {
+#white2 {
   position: absolute;
   width: 500px;
   height: 500px;
   border-radius: 50%;
   filter: blur(20px);
-  opacity: 0.4;
+  /* opacity: 0.4; */
   /* background: linear-gradient(to top, #06426727 1%, white); */
   background-color: white;
   top: 35%;
   left: -65%;
   transform: translate(-10%, -10%);
-  opacity: 100;
+  /* opacity: 100; */
   animation-delay: 1s;
   z-index: 0;
   animation: orbit3 20s ease-in-out infinite;

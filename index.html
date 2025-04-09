@@ -34,13 +34,13 @@
         <h1>INTEGRAÇÃO <BR>
            ONLINE</h1>
       </div>
-          <button class="ButtonStyleBlue" > COMEÇAR </button>
+          <button class="ButtonStyleBlue" onclick="closetep1()" > COMEÇAR </button>
 
 
 
         </section>
-        <div class=" white"></div>
-        <div class=" white2"></div>
+        <div id="white"></div>
+        <div id="white2"></div>
 
         <!--  -->
         <section id="step2">
@@ -65,22 +65,22 @@
 
               <label for="password"></label>
               <input type="password" id="passwordUser" name="password">
-
-              <div id="loginWithOthers">
-                <p>OU FAÇA LOGIN COM</p>
-                <img src="img/logoGoogle.png" alt="">
-              </div>
-              <div id="containerToggle">
-                <p>NÃO TEM CADASTRO?</p>
-                <button CLASS="ButtonStyleBlue">CADASTRAR</button>
-              </div>
             </form>
+            <button CLASS="ButtonStyleBlue" onclick="showUserContent()">CONTINUAR</button>
+            <div id="loginWithOthers">
+              <p>OU FAÇA LOGIN COM</p>
+              <img src="img/logoGoogle.png" alt="">
+            </div>
+            <div id="containerToggle">
+              <p>NÃO TEM CADASTRO?</p>
+              <button CLASS="ButtonStyleBlue" onclick="toggleToRegister()">CADASTRAR</button>
+            </div>
           </div>
         </div>
         <!-- FIM DO TEM CONTA -->
 
         <!-- COMEÇO DO NAO TEM CONTA -->
-        <div id="dontHaveAccount">
+        <div id="dontHaveAccount" class="startHidden">
           <div id="AuthFormNewUser">
             <div id="createWithOthers">
               <p>CADASTRE-SE COM</p>
@@ -98,12 +98,13 @@
             <input type="password" id="passwordNewUser" name="passwordNew" placeholder="Sua senha">
 
             <input type="password" id="ConfirmPassword" placeholder="confirme sua senha">
-            <p id="ResponderAuthNewUser">as senhas não são iguais</p>
-            <div id="containerToggleNewUser">
-              <p>JÁ TEM CADASTRO?</p>
-              <button CLASS="ButtonStyleBlue">LOGIN</button>
-            </div>
-            </form>
+          </form>
+          <p id="ResponderAuthNewUser">as senhas não são iguais</p>
+          <button CLASS="ButtonStyleBlue" onclick="showUserContent()">CONTINUAR</button>
+          <div id="containerToggleNewUser">
+            <p>JÁ TEM CADASTRO?</p>
+            <button CLASS="ButtonStyleBlue" onclick="toggleToAccess()">LOGIN</button>
+          </div>
           </div>
         </div>
         <!-- FIM DO NÃO TEM CONTA -->
@@ -112,7 +113,7 @@
     </section>
 
 <!--  -->
-    <section id="step3">
+    <section id="step3" class="startHidden">
       <div id="coletaDados">
         <h1>Vamos começar pelos seus dados!</h1>
         <form action="">
@@ -120,27 +121,27 @@
           <input type="text" name="Nome" class="InputClass" placeholder="Jhon Doe Rogerio ">
 
           <label for="cargo">Seu cargo</label>
-          <select name="cargo" id="" class="InputClass">
+          <select name="cargo" id="cargoUser" class="InputClass">
             <option value="operador">operador</option>
             <option value="zelador">zelador</option>
           </select>
 
           <label for="Turno">Seu turno</label>
-          <select name="Turno" id="" class="InputClass">
+          <select name="Turno" id="turnoUser" class="InputClass">
             <option value="1">1° turno</option>
             <option value="2">2° turno</option>
             <option value="3">3° turno</option>
           </select>
 
           <label for="área">Sua área</label>
-          <select name="área" id="" class="InputClass">
+          <select name="área" id="areaUser" class="InputClass">
             <option value="produção">produção</option>
             <option value="logistica">logistica</option>
             <option value="limpeza">limpeza</option>
           </select>
 
           <label for="admissao">Data de admissão</label>
-          <input type="date" name="" id="" class="InputClass">
+          <input type="date" name="admissao" id="admissaoUser" class="InputClass">
         </form>
         <div id="containterButtonColetaDados">
           <button class="ButtonStyleBlue">avançar</button>
@@ -158,5 +159,15 @@
       <div class="blob blue"></div>
 
     </div>
+
+    <script src="https://www.gstatic.com/firebasejs/7.8.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.8.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.8.1/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.8.1/firebase-storage.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="js/firebase.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/todo.js"></script>
   </body>
 </html>
