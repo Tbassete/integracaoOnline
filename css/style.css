@@ -6,8 +6,8 @@
 :root {
   --blue-deep: #064267;
   --red-strong: #AE1100;
-  --blue-soft: #06426775;
-  --red-soft: #ae11006c;
+  --blue-soft: #064267c2;
+  --red-soft: #ae1100cb;
 }
 body {
   margin: 0px;
@@ -174,7 +174,7 @@ body {
     align-items: center;
     background-color: var(--blue-deep);
     width: 100vw;
-    height: 39vh;
+    height: 30vh;
     margin-bottom: -2px;
     & #container1{
       display: flex;
@@ -203,7 +203,9 @@ body {
 }
 
  #containerToggle{
-  padding-top: 100px;
+  padding-top: 90px;
+  padding-bottom: 20px;
+  margin-bottom: 10px;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -295,7 +297,9 @@ body {
 }
  #containerToggleNewUser{
 
-  padding-top: 100px;
+  padding-top: 60px;
+  padding-bottom: 20px;
+  margin-bottom: 10px;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -419,7 +423,7 @@ body {
   /* opacity: 100; */
   animation-delay: 1s;
   z-index: 0;
-  animation: orbit2 20s ease-in-out infinite;
+  animation: orbit2 16s ease-in-out infinite;
 }
 #white2 {
   position: absolute;
@@ -436,7 +440,7 @@ body {
   /* opacity: 100; */
   animation-delay: 1s;
   z-index: 0;
-  animation: orbit3 20s ease-in-out infinite;
+  animation: orbit3 16s ease-in-out infinite;
 }
 @keyframes orbit {
   0% {
