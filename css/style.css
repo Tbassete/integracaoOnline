@@ -6,8 +6,8 @@
 :root {
   --blue-deep: #064267;
   --red-strong: #AE1100;
-  --blue-soft: #064267c2;
-  --red-soft: #ae1100cb;
+  --blue-soft: #064267;
+  --red-soft: #ae1100;
 }
 body {
   margin: 0px;
