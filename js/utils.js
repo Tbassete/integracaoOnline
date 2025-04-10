@@ -5,6 +5,7 @@ var white = document.getElementById('white')
 var white2 = document.getElementById('white2')
 var step2 = document.getElementById('step2')
 var step3 = document.getElementById('step3')
+var step4 = document.getElementById('step4')
 function showItem(element) {
     element.classList.add('transition-item');
   
@@ -102,4 +103,15 @@ setInterval(showtep1, 3600000);
 function showUserContent(){
     hideItem(step2)
     showItem(step3)
+    // if(verify = false){
+    //     showItem(step3)
+    // }else{
+    //     showItem(step4)
+    // }
 }
+
+function showstep4(){
+    hideItem(step3)
+    showItem(step4)
+}
+

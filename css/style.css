@@ -367,8 +367,112 @@ body {
 
 /* tela de login */
 
+/* step4 */
+#listVideos {
+
+  width: 100vw;
+  height: 50vh;
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+  padding: 40px 0;
+    /* Esconde a barra no Chrome, Safari e outros WebKit */
+    scrollbar-width: none;       /* Firefox */
+    -ms-overflow-style: none;    /* Internet Explorer/Edge antigo */
+}
+#sectionVideos{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+  & h1{
+    font-weight: 700;
+    letter-spacing: 1px;
+    font-size: 2.5rem;
+    margin: 10vh 0px 10vh 5vw;
+  }
+}
+
+#listVideos::-webkit-scrollbar {
+  display: none;               /* Chrome, Safari e Opera */
+}
+
+.allVideos{
+  margin: 55px auto;
+  width: 90%;
+  max-width: 600px;
+  background: white;
+  border-radius: 20px;
+  animation: appear linear;
+  animation-timeline: view();
+  animation-range: entry 0% cover 60%;
+}
+#soParaDarVolume{
+  margin: 10px auto;
+  width: 90%;
+  max-width: 600px;
+  background: white;
+  border-radius: 20px;
+  animation: appear linear;
+  animation-timeline: view();
+  animation-range: entry 0% cover 60%;
+}
+.containerIframe{
+  position: relative; width: 100%; 
+  height: auto; padding-top: 56.2500%;
+  padding-bottom: 0; 
+  box-shadow: 0 2px 8px 0 rgba(63,69,81,0.16); 
+  margin-bottom: 10px; overflow: hidden;
+  border-radius: 8px; 
+  will-change: "transform";
+}
 
 
+/* controls */
+#containerMenuControls{
+  width: 100vw;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+margin-top: 30px;
+}
+
+#menuControls{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  border-radius: 34px;
+  width: 55vw;
+  height: 80px;
+}
+
+.iconsControls{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  color: var(--blue-deep);
+  background-color: white;
+  transition: 0.5s;
+  & svg{
+    width: 50px;
+    height: 50px;
+  }
+}
+
+.iconsControls:hover{
+  color: white;
+  background-color: var(--blue-deep);
+}
+
+/*  */
+
+/* fim do step4 */
 
 /* s */
 
@@ -442,6 +546,14 @@ body {
   z-index: 0;
   animation: orbit3 16s ease-in-out infinite;
 }
+/* fim das bolhas */
+
+/* animação do scroll */
+
+
+
+/* fim da animação do scroll */
+
 @keyframes orbit {
   0% {
     transform: rotate(0deg) translateX(100px) rotate(0deg);
@@ -485,3 +597,16 @@ body {
     transform: rotate(0deg) translateX(30px) rotate(0deg);
   }
 }
+
+@keyframes appear {
+  from{
+    opacity: 0;
+    scale: 0.1;
+    filter: grayscale(100%);
+  }to{
+    opacity: 1;
+    scale: 1;
+    filter: grayscale(0%);
+  }
+}
+

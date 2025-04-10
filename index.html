@@ -144,12 +144,74 @@
           <input type="date" name="admissao" id="admissaoUser" class="InputClass">
         </form>
         <div id="containterButtonColetaDados">
-          <button class="ButtonStyleBlue">avançar</button>
+          <button class="ButtonStyleBlue" onclick="showstep4()">avançar</button>
         </div>
       </div>
     </section>
 
-    <section id="step4">
+    <section id="step4" class="startHidden">
+      <!-- section videos -->
+      <div id="sectionVideos">
+        <h1>Aqui começa a <br>
+        sua jornada!</h1>
+        <div id="listVideos">
+          <div id="videoId1" class="allVideos">
+            <div class="containerIframe">
+          <iframe loading="lazy" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; padding: 0;margin: 0;"
+              src="https://www.canva.com/design/DAGipkCx19U/_ouKWVFWx63Y9IiBT11AGg/watch?embed" allowfullscreen="allowfullscreen" allow="fullscreen">
+          </iframe>
+            </div>
+
+          </div>
+          <div id="videoId12" class="allVideos">
+            <div class="containerIframe">
+      <iframe loading="lazy" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; padding: 0;margin: 0;"
+          src="https://www.canva.com/design/DAGipkCx19U/_ouKWVFWx63Y9IiBT11AGg/watch?embed" allowfullscreen="allowfullscreen" allow="fullscreen">
+      </iframe>
+        </div>
+          </div>
+          <div id="videoId13" class="allVideos">
+            <div class="containerIframe">
+              <iframe loading="lazy" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; padding: 0;margin: 0;"
+                 src="https://www.canva.com/design/DAGipkCx19U/_ouKWVFWx63Y9IiBT11AGg/watch?embed" allowfullscreen="allowfullscreen" allow="fullscreen">
+              </iframe>
+              </div>
+          </div>
+
+          <div id="videoId14" class="allVideos">
+            <div class="containerIframe">
+              <iframe loading="lazy" style="position: absolute; width: 100%; height: 100%; top: 0; left:0; border: none; padding: 0;margin: 0;"
+                         src="https://www.canva.com/design/DAGipkCx19U/_ouKWVFWx63Y9IiBT11AGg/watch?embed" allowfullscreen="allowfullscreen" allow="fullscreen">
+              </iframe>
+            </div>
+          </div>
+
+          <div id="soParaDarVolume" class="containerIframe"></div>
+
+        </div>
+      </div>
+      <!-- fim section videos -->
+      <div id="containerMenuControls">
+        <div id="menuControls">
+          <div id="play" class="iconsControls">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-play-circle" viewBox="0 0 16 16">
+              <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+              <path d="M6.271 5.055a.5.5 0 0 1 .52.038l3.5 2.5a.5.5 0 0 1 0 .814l-3.5 2.5A.5.5 0 0 1 6 10.5v-5a.5.5 0 0 1 .271-.445"/>
+            </svg>
+          </div>
+          <div id="concluded" class="iconsControls">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle" viewBox="0 0 16 16">
+              <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+              <path d="m10.97 4.97-.02.022-3.473 4.425-2.093-2.094a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05"/>
+            </svg>
+          </div>
+          <div id="profileButton" class="iconsControls">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
+              <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
+            </svg>
+          </div>
+        </div>
+      </div>
 
     </section>
 
