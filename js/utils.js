@@ -6,6 +6,9 @@ var white2 = document.getElementById('white2')
 var step2 = document.getElementById('step2')
 var step3 = document.getElementById('step3')
 var step4 = document.getElementById('step4')
+var sectionVideos = document.getElementById('sectionVideos')
+var sectionConcluded = document.getElementById('sectionConcluded')
+var userProfile = document.getElementById('userProfile')
 function showItem(element) {
     element.classList.add('transition-item');
   
@@ -115,3 +118,20 @@ function showstep4(){
     showItem(step4)
 }
 
+function showConcluded(){
+    hideItem(userProfile)
+    hideItem(sectionVideos)
+    showItem(sectionConcluded)
+}
+
+function showProfile(){
+    hideItem(sectionConcluded)
+    hideItem(sectionVideos)
+    showItem(userProfile)
+}
+
+function showVideos(){
+    hideItem(userProfile)
+    hideItem(sectionConcluded)
+    showItem(sectionVideos)
+}

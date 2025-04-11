@@ -368,10 +368,14 @@ body {
 /* tela de login */
 
 /* step4 */
-#listVideos {
-
+#step4{
   width: 100vw;
-  height: 50vh;
+  height: 100vh;
+}
+#listVideos {
+  margin-top: 10vh;
+  width: 100vw;
+  height: 76vh;
   overflow-y: scroll;
   scroll-behavior: smooth;
   padding: 40px 0;
@@ -397,14 +401,14 @@ body {
 }
 
 .allVideos{
-  margin: 55px auto;
+  margin: 5px auto;
   width: 90%;
   max-width: 600px;
   background: white;
   border-radius: 20px;
   animation: appear linear;
   animation-timeline: view();
-  animation-range: entry 0% cover 60%;
+  animation-range: entry 0% cover 100%;
 }
 #soParaDarVolume{
   margin: 10px auto;
@@ -424,6 +428,45 @@ body {
   margin-bottom: 10px; overflow: hidden;
   border-radius: 8px; 
   will-change: "transform";
+}
+
+/* list concluded videos */
+#listConcluded{
+  display: flex;
+  flex-direction: column;
+  justify-content: top;
+  align-items: start;
+  margin-top: 10vh;
+  height: 74vh;
+  width: 100vw;
+  & h1{
+    margin-left: 20px;
+    font-size: 2.2rem;
+  }
+
+}
+.allConcludedVideos{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 80vw;
+  height: fit-content;
+  background-color: rgba(255, 255, 255, 0.527);
+  border: 2px solid white;
+  border-radius: 34px;
+  margin: 10px auto;
+  & iframe{
+    width: 30vw;
+    height: 8vh;
+    /* height: auto; */
+    border-radius: 34px;
+  }
+  & p{
+    margin: 1px auto;
+    text-align: center;
+    font-weight: bolder;
+  }
 }
 
 
@@ -599,14 +642,20 @@ margin-top: 30px;
 }
 
 @keyframes appear {
-  from{
+  0% {
     opacity: 0;
     scale: 0.1;
     filter: grayscale(100%);
-  }to{
+  }
+  50% {
     opacity: 1;
     scale: 1;
     filter: grayscale(0%);
+  }
+  100% {
+    opacity: 0;
+    scale: 0;
+    filter: grayscale(100%);
   }
 }
 

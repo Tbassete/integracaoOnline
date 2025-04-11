@@ -152,9 +152,9 @@
     <section id="step4" class="startHidden">
       <!-- section videos -->
       <div id="sectionVideos">
-        <h1>Aqui começa a <br>
-        sua jornada!</h1>
         <div id="listVideos">
+          <h1>Aqui começa a <br>
+          sua jornada!</h1>
           <div id="videoId1" class="allVideos">
             <div class="containerIframe">
           <iframe loading="lazy" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; padding: 0;margin: 0;"
@@ -191,21 +191,75 @@
         </div>
       </div>
       <!-- fim section videos -->
+      <div id="sectionConcluded" class="startHidden">
+          <div id="listConcluded">
+            <h1>Vídeos Concluídos</h1>
+              <div id="1" class="allConcludedVideos">
+                <iframe src="https://www.canva.com/design/DAGipkCx19U/_ouKWVFWx63Y9IiBT11AGg/watch" frameborder="0"></iframe>
+                <p id="1p">Clientes parceiros</p>
+              </div>
+              <div id="1" class="allConcludedVideos">
+                <iframe src="https://www.canva.com/design/DAGipkCx19U/_ouKWVFWx63Y9IiBT11AGg/watch" frameborder="0"></iframe>
+                <p id="1p">Clientes parceiros</p>
+              </div>
+              <div id="1" class="allConcludedVideos">
+                <iframe src="https://www.canva.com/design/DAGipkCx19U/_ouKWVFWx63Y9IiBT11AGg/watch" frameborder="0"></iframe>
+                <p id="1p">Clientes parceiros</p>
+              </div>
+              <div id="1" class="allConcludedVideos">
+                <iframe src="https://www.canva.com/design/DAGipkCx19U/_ouKWVFWx63Y9IiBT11AGg/watch" frameborder="0"></iframe>
+                <p id="1p">Clientes parceiros</p>
+              </div>
+              <div id="1" class="allConcludedVideos">
+                <iframe src="https://www.canva.com/design/DAGipkCx19U/_ouKWVFWx63Y9IiBT11AGg/watch" frameborder="0"></iframe>
+                <p id="1p">Clientes parceiros</p>
+              </div>
+          </div>
+      </div>
+      <div id="userProfile" class="startHidden">
+          <div id="Profile">
+            <img src="img/AirBrush_20241007083337.jpg" class="imgUser" alt="">
+            <h1>Thiago Bassete</h1>
+
+            <div id="infoEmail">
+              <h2>taraujo438.ta@gmail.com</h2>
+              <svg xmlns="http://www.w3.org/2000/svg" width="5" height="5" fill="currentColor" class="bi bi-patch-check" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M10.354 6.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7 8.793l2.646-2.647a.5.5 0 0 1 .708 0"/>
+                <path d="m10.273 2.513-.921-.944.715-.698.622.637.89-.011a2.89 2.89 0 0 1 2.924 2.924l-.01.89.636.622a2.89 2.89 0 0 1 0 4.134l-.637.622.011.89a2.89 2.89 0 0 1-2.924 2.924l-.89-.01-.622.636a2.89 2.89 0 0 1-4.134 0l-.622-.637-.89.011a2.89 2.89 0 0 1-2.924-2.924l.01-.89-.636-.622a2.89 2.89 0 0 1 0-4.134l.637-.622-.011-.89a2.89 2.89 0 0 1 2.924-2.924l.89.01.622-.636a2.89 2.89 0 0 1 4.134 0l-.715.698a1.89 1.89 0 0 0-2.704 0l-.92.944-1.32-.016a1.89 1.89 0 0 0-1.911 1.912l.016 1.318-.944.921a1.89 1.89 0 0 0 0 2.704l.944.92-.016 1.32a1.89 1.89 0 0 0 1.912 1.911l1.318-.016.921.944a1.89 1.89 0 0 0 2.704 0l.92-.944 1.32.016a1.89 1.89 0 0 0 1.911-1.912l-.016-1.318.944-.921a1.89 1.89 0 0 0 0-2.704l-.944-.92.016-1.32a1.89 1.89 0 0 0-1.912-1.911z"/>
+              </svg>
+            </div>
+            <h2>ANALYST AND DEVELOPMENT SYSTEMS</h2>
+            <div class="infoGerais">
+              <h2>TURNO:</h2>
+              <H2>ADM</H2>
+            </div>
+            <div class="infoGerais">
+              <H2>AREA:</H2>
+              <H2>T.I.</H2>
+            </div>
+            <div class="infoGerais">
+              <H2>ADMISSÃO</H2>
+              <H2>20/01/2025</H2>
+            </div>
+          </div>
+      </div>
+
+      <!-- section controls -->
       <div id="containerMenuControls">
         <div id="menuControls">
-          <div id="play" class="iconsControls">
+          <div id="play" class="iconsControls" onclick="showVideos()">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-play-circle" viewBox="0 0 16 16">
               <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
               <path d="M6.271 5.055a.5.5 0 0 1 .52.038l3.5 2.5a.5.5 0 0 1 0 .814l-3.5 2.5A.5.5 0 0 1 6 10.5v-5a.5.5 0 0 1 .271-.445"/>
             </svg>
           </div>
-          <div id="concluded" class="iconsControls">
+          <div id="concluded" class="iconsControls " onclick="showConcluded()">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle" viewBox="0 0 16 16">
               <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
               <path d="m10.97 4.97-.02.022-3.473 4.425-2.093-2.094a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05"/>
             </svg>
           </div>
-          <div id="profileButton" class="iconsControls">
+          <div id="profileButton" class="iconsControls " onclick="showProfile()">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
               <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
             </svg>
