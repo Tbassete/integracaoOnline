@@ -290,5 +290,29 @@
     <script src="js/utils.js"></script>
     <script src="js/auth.js"></script>
     <script src="js/todo.js"></script>
+    <script>
+      const list = document.getElementById('listVideos');
+      const videos = document.querySelectorAll('.allVideos');
+    
+      list.addEventListener('scroll', () => {
+        const listRect = list.getBoundingClientRect();
+        const centerY = listRect.top + list.clientHeight / 2;
+    
+        videos.forEach(video => {
+          const rect = video.getBoundingClientRect();
+          const distance = Math.abs(rect.top + rect.height / 2 - centerY);
+          const maxDistance = list.clientHeight / 2;
+    
+          let scale = 1 - Math.min(distance / maxDistance, 1) * 0.2;
+          let gray = Math.min(distance / maxDistance, 1) * 100;
+    
+          video.style.transform = `scale(${scale})`;
+          video.style.filter = `grayscale(${gray}%)`;
+        });
+      });
+    
+      // Rodar uma vez no início
+      list.dispatchEvent(new Event('scroll'));
+    </script>
   </body>
 </html>
