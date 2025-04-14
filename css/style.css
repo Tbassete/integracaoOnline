@@ -379,25 +379,48 @@ body {
   overflow-y: scroll;
   scroll-behavior: smooth;
   padding: 40px 0;
-    /* Esconde a barra no Chrome, Safari e outros WebKit */
-    scrollbar-width: none;       /* Firefox */
-    -ms-overflow-style: none;    /* Internet Explorer/Edge antigo */
-}
-#sectionVideos{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: start;
+  scrollbar-width: none;        /* Firefox */
+  -ms-overflow-style: none;     /* IE/Edge antigo */
+  -webkit-overflow-scrolling: touch; /* iOS Safari/Chrome */
   & h1{
-    font-weight: 700;
-    letter-spacing: 1px;
     font-size: 2.5rem;
-    margin: 10vh 0px 10vh 5vw;
+    margin-left: 19px;
   }
 }
 
 #listVideos::-webkit-scrollbar {
-  display: none;               /* Chrome, Safari e Opera */
+  display: none;
+}
+
+#sectionVideos {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.containerIframe {
+  position: relative;
+  width: 100%;
+  height: auto;
+  padding-top: 56.25%;
+  padding-bottom: 0;
+  box-shadow: 0 2px 8px 0 rgba(63,69,81,0.16);
+  margin-bottom: 10px;
+  overflow: hidden;
+  border-radius: 8px;
+  will-change: transform;
+}
+
+#soParaDarVolume{
+  margin: 10px auto;
+  width: 90%;
+  max-width: 600px;
+  background: white;
+  border-radius: 20px;
+  animation: appear linear;
+  animation-timeline: view();
+  animation-range: entry 0% cover 60%;
 }
 
 .allVideos{
@@ -409,25 +432,6 @@ body {
   animation: appear linear;
   animation-timeline: view();
   animation-range: entry 0% cover 100%;
-}
-#soParaDarVolume{
-  margin: 10px auto;
-  width: 90%;
-  max-width: 600px;
-  background: white;
-  border-radius: 20px;
-  animation: appear linear;
-  animation-timeline: view();
-  animation-range: entry 0% cover 60%;
-}
-.containerIframe{
-  position: relative; width: 100%; 
-  height: auto; padding-top: 56.2500%;
-  padding-bottom: 0; 
-  box-shadow: 0 2px 8px 0 rgba(63,69,81,0.16); 
-  margin-bottom: 10px; overflow: hidden;
-  border-radius: 8px; 
-  will-change: "transform";
 }
 
 /* list concluded videos */
@@ -470,6 +474,68 @@ body {
 }
 
 
+/* PROFILE */
+#settings{
+  display: flex;
+  justify-content: end;
+  align-items: end;
+  width: 80vw;
+
+  & svg{
+    width: 20px;
+    height: 20px;
+  }
+}
+#Profile{
+  margin: 20vh auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  & h1{
+    font-size: 1.9rem;
+  }
+  & h2{
+    margin: 5px auto;
+    font-size: 1.1rem;
+    font-weight: 200;
+  }
+}
+.imgUser{
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  border: 2px solid white;
+}
+
+.infoGerais{
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+  width: 80vw;
+  & *{
+
+    font-weight: 200;
+    letter-spacing: 6px;
+    margin: 5px 15px;
+  }
+}
+#infoEmail{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  & h2{
+    font-size: 0.8rem;
+    font-weight: 500;
+  }
+  & svg{
+
+    width: 15px;
+    height: 15px;
+  }
+
+}
 /* controls */
 #containerMenuControls{
   width: 100vw;

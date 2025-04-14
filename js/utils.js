@@ -135,3 +135,7 @@ function showVideos(){
     hideItem(sectionConcluded)
     showItem(sectionVideos)
 }
+
+function editProfile(){
+  showItem(step3)
+}
