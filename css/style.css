@@ -399,18 +399,7 @@ body {
   align-items: flex-start;
 }
 
-.containerIframe {
-  position: relative;
-  width: 100%;
-  height: auto;
-  padding-top: 56.25%;
-  padding-bottom: 0;
-  box-shadow: 0 2px 8px 0 rgba(63,69,81,0.16);
-  margin-bottom: 10px;
-  overflow: hidden;
-  border-radius: 8px;
-  will-change: transform;
-}
+
 
 #soParaDarVolume{
   margin: 10px auto;
@@ -424,14 +413,67 @@ body {
 }
 
 .allVideos{
-  margin: 5px auto;
-  width: 90%;
-  max-width: 600px;
-  background: white;
-  border-radius: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 80vw;
+  height: 24vh;
+
+  border-radius: 34px;
+  margin: 10px auto;
   animation: appear linear;
   animation-timeline: view();
   animation-range: entry 0% cover 100%;
+
+
+
+}
+
+.imgCapa{
+  border-radius: 34px;
+  max-width: 90vw;
+  height: auto;
+}
+
+/* perguntas */
+#ContainerPerguntas{
+  display: flex;
+  flex-direction: column;
+  width: 80vw;
+  background-color: rgba(255, 255, 255, 0.384);
+  border: 2px solid white;
+  border-radius: 34px;
+  padding: 20px;
+
+  & form{
+    display: flex;
+    flex-direction: column-reverse;
+  }
+}
+
+#containerVideosPerguntas{
+
+  width: 100vw;
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.containerIframe {
+  position: relative;
+  width: 80vw;
+  height: auto;
+  padding-top: 56.25%;
+  padding-bottom: 0;
+  box-shadow: 0 2px 8px 0 rgba(63,69,81,0.16);
+  margin-bottom: 10px;
+  overflow: hidden;
+  border-radius: 8px;
+  will-change: transform;
+  z-index: 1;
 }
 
 /* list concluded videos */
@@ -472,6 +514,7 @@ body {
     font-weight: bolder;
   }
 }
+
 
 
 /* PROFILE */

@@ -9,6 +9,8 @@ var step4 = document.getElementById('step4')
 var sectionVideos = document.getElementById('sectionVideos')
 var sectionConcluded = document.getElementById('sectionConcluded')
 var userProfile = document.getElementById('userProfile')
+var ShowQuests = document.getElementById('showQuests')
+
 function showItem(element) {
     element.classList.add('transition-item');
   
@@ -104,6 +106,7 @@ setInterval(showtep1, 3600000);
 
 
 function showUserContent(){
+
     hideItem(step2)
     showItem(step3)
     // if(verify = false){
@@ -121,21 +124,33 @@ function showstep4(){
 function showConcluded(){
     hideItem(userProfile)
     hideItem(sectionVideos)
+    hideItem(ShowQuests)
     showItem(sectionConcluded)
 }
 
 function showProfile(){
     hideItem(sectionConcluded)
     hideItem(sectionVideos)
+    hideItem(ShowQuests)
     showItem(userProfile)
 }
 
 function showVideos(){
     hideItem(userProfile)
     hideItem(sectionConcluded)
+    hideItem(ShowQuests)
     showItem(sectionVideos)
 }
 
 function editProfile(){
+
+
   showItem(step3)
+}
+
+function showQuests1(){
+  hideItem(sectionVideos)
+  hideItem(userProfile)
+  hideItem(sectionConcluded)
+  showItem(ShowQuests)
 }
