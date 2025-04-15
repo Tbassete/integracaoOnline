@@ -437,20 +437,67 @@ body {
 }
 
 /* perguntas */
-#ContainerPerguntas{
+#ContainerPerguntas {
   display: flex;
   flex-direction: column;
-  width: 80vw;
+  width: 90vw;
   background-color: rgba(255, 255, 255, 0.384);
   border: 2px solid white;
   border-radius: 34px;
   padding: 20px;
+  font-family: 'Segoe UI', sans-serif;
+  color: var(--blue-deep);
 
-  & form{
+  & form {
     display: flex;
-    flex-direction: column-reverse;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 16px;
+  }
+
+  & label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 14px;
+    border-radius: 18px;
+    background-color: rgba(255, 255, 255, 0.7);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+
+  & label:hover {
+    background-color: rgba(255, 255, 255, 0.9);
+  }
+
+  & input[type="radio"] {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #555;
+    border-radius: 50%;
+    position: relative;
+    transition: all 0.2s ease;
+  }
+
+  & input[type="radio"]:checked {
+    border-color: #007bff;
+    background-color: #007bff;
+  }
+
+  & input[type="radio"]:checked::before {
+    content: '';
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    width: 8px;
+    height: 8px;
+    background: white;
+    border-radius: 50%;
   }
 }
+
 
 #containerVideosPerguntas{
 
@@ -464,14 +511,14 @@ body {
 
 .containerIframe {
   position: relative;
-  width: 80vw;
-  height: auto;
+  width: 90dvw;
+  height: fit-content;
   padding-top: 56.25%;
   padding-bottom: 0;
   box-shadow: 0 2px 8px 0 rgba(63,69,81,0.16);
   margin-bottom: 10px;
   overflow: hidden;
-  border-radius: 8px;
+  border-radius: 34px;
   will-change: transform;
   z-index: 1;
 }
