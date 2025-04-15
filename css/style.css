@@ -565,66 +565,108 @@ body {
 
 
 /* PROFILE */
-#settings{
-  display: flex;
-  justify-content: end;
-  align-items: end;
-  width: 80vw;
+#Profile {
+  max-width: 90vw;
+  margin: 10vh auto;
+  padding: 2rem;
+  border-radius: 16px;
+  background: #ffffff71;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  font-family: "Segoe UI";
+  color: #333;
+}
 
-  & svg{
-    width: 20px;
-    height: 20px;
-  }
-}
-#Profile{
-  margin: 20vh auto;
+#settings {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  & h1{
-    font-size: 1.9rem;
-  }
-  & h2{
-    margin: 5px auto;
-    font-size: 1.1rem;
-    font-weight: 200;
-  }
+  justify-content: flex-end;
+  margin-bottom: 1rem;
 }
-.imgUser{
-  width: 150px;
-  height: 150px;
+
+#settings .icon {
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+#settings .icon:hover {
+  transform: scale(1.15);
+  color: #007bff;
+}
+
+.imgUser {
+  width: 180px;
+  height: 180px;
   border-radius: 50%;
-  border: 2px solid white;
+  border: 3px solid transparent;
+  padding: 3px; /* necessário pra borda animada aparecer */
+  background: linear-gradient(45deg,var(--blue-deep), var(--blue-deep)30%, white, var(--blue-deep), var(--blue-deep), var(--blue-deep));
+  /* background: linear-gradient(45deg,
+  red,
+  orange,
+  yellow,
+  green,
+  cyan,
+  blue,
+  violet,
+  red); */
+  background-size: 400% 400%;
+  animation: rgbBorder 6s linear infinite;
+  object-fit: cover;
+  margin-bottom: 1rem;
 }
 
-.infoGerais{
-  display: flex;
-  flex-direction: row;
-  justify-content: start;
-  align-items: center;
-  width: 80vw;
-  & *{
-
-    font-weight: 200;
-    letter-spacing: 6px;
-    margin: 5px 15px;
-  }
+@keyframes rgbBorder {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
-#infoEmail{
+
+h1 {
+  font-size: 1.8rem;
+  margin: 0.5rem 0;
+  font-weight: 600;
+}
+
+h2 {
+  font-size: 1rem;
+  font-weight: 400;
+  color: #666;
+  margin: 0.3rem 0;
+}
+
+#infoEmail {
   display: flex;
   justify-content: center;
   align-items: center;
-  & h2{
-    font-size: 0.8rem;
-    font-weight: 500;
-  }
-  & svg{
+  gap: 0.4rem;
+  margin: 0.5rem 0;
+}
 
-    width: 15px;
-    height: 15px;
-  }
+#infoEmail h2 {
+  font-size: 0.9rem;
+  font-weight: 500;
+}
 
+.check-icon {
+  width: 16px;
+  height: 16px;
+  color: #28a745;
+}
+
+.infoGerais {
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px solid #eee;
+  padding: 0.6rem 0;
+  font-size: 0.95rem;
+}
+
+.infoGerais .label {
+  font-weight: 500;
+  color: #444;
+  letter-spacing: 1px;
 }
 /* controls */
 #containerMenuControls{
