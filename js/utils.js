@@ -109,6 +109,7 @@ function showUserContent(){
 
     hideItem(step2)
     showItem(step3)
+    updateVideoStyles();
     // if(verify = false){
     //     showItem(step3)
     // }else{
