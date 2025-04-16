@@ -570,7 +570,9 @@ body {
   margin: 10vh auto;
   padding: 2rem;
   border-radius: 16px;
-  background: #ffffff71;
+  border: 2px solid white;
+  /* background: #ffffff71; */
+  background-color: rgba(255, 255, 255, 0.377);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
   text-align: center;
   font-family: "Segoe UI";
@@ -624,9 +626,9 @@ body {
 }
 
 h1 {
-  font-size: 1.8rem;
+  /* font-size: 1.8rem;
   margin: 0.5rem 0;
-  font-weight: 600;
+  font-weight: 600; */
 }
 
 h2 {
@@ -658,7 +660,7 @@ h2 {
 .infoGerais {
   display: flex;
   justify-content: space-between;
-  border-top: 1px solid #eee;
+  border-bottom: 2px solid white;
   padding: 0.6rem 0;
   font-size: 0.95rem;
 }
@@ -676,6 +678,7 @@ h2 {
   justify-content: center;
   align-items: center;
 margin-top: 30px;
+margin-bottom: 10vh;
 }
 
 #menuControls{
