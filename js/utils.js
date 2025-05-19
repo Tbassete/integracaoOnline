@@ -10,7 +10,7 @@ var sectionVideos = document.getElementById('sectionVideos')
 var sectionConcluded = document.getElementById('sectionConcluded')
 var userProfile = document.getElementById('userProfile')
 var ShowQuests = document.getElementById('showQuests')
-
+var authForm = document.getElementById('authForm')
 function showItem(element) {
     element.classList.add('transition-item');
   
@@ -154,4 +154,30 @@ function showQuests1(){
   hideItem(userProfile)
   hideItem(sectionConcluded)
   showItem(ShowQuests)
+}
+
+// cebtralizar e traduzir erros 
+function showError(prefix, error) {
+  
+  console.log(error.code);
+  hideItem(loading);
+
+  switch (error.code) {
+    case 'auth/invalid-email':
+    case 'auth/wrong-password':
+      alert(prefix + ' email ou senha incorretos');
+      break;
+    default:
+      alert(prefix + ' ' + error.message);
+      break;
+  }
+}
+
+var database = firebase.database()
+var dbRefUsers = database.ref('users')
+
+var actionCodeSettings = {
+  // url: 'https://todo-13563.firebaseapp.com' //voltar para esse depois
+  // url: 'https://megatecabrasil.web.app/'
+  URL: 'https://127.0.0.1'
 }

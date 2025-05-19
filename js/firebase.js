@@ -2,6 +2,7 @@
 var firebaseConfig = {
     apiKey: "AIzaSyCZSh1Pgbi6_mX279JF6fOd8CwmLUrpw9o",
     authDomain: "welcome-to-megatech.firebaseapp.com",
+    databaseURL: "https://welcome-to-megatech-default-rtdb.firebaseio.com/",
     projectId: "welcome-to-megatech",
     storageBucket: "welcome-to-megatech.firebasestorage.app",
     messagingSenderId: "599564651044",
