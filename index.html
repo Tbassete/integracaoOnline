@@ -58,9 +58,9 @@
         <!-- TEM CONTA -->
         <div id="haveAccount">
 
-          <div id="authForm">
+          <div id="authFormDiv">
             <h1>BEM VINDO AO GRUPO <br> SAPA MEGATECH</h1>
-            <form action="">
+            <form id="authForm" action="">
               <label for="email"></label>
               <input type="email" id="emailUser" name="email" placeholder="seu_email@exemplo.com">
 
@@ -69,7 +69,8 @@
             </form>
             <button CLASS="ButtonStyleBlue" onclick="showUserContent()">CONTINUAR</button>
             <button CLASS="ButtonStyleBlue" onclick="loginWithPassword()">acessar</button>
-            <div id="loginWithOthers">
+            <button CLASS="ButtonStyleBlue" onclick="signOut()">logout</button>
+            <div id="loginWithOthers" onclick="signInWithGoogle()">
               <p>OU FAÇA LOGIN COM</p>
               <img src="img/logoGoogle.png" alt="">
             </div>
@@ -84,7 +85,7 @@
         <!-- COMEÇO DO NAO TEM CONTA -->
         <div id="dontHaveAccount" class="startHidden">
           <div id="AuthFormNewUser">
-            <div id="createWithOthers">
+            <div id="createWithOthers" onclick="signInWithGoogle()">
               <p>CADASTRE-SE COM</p>
               <div>
 
@@ -92,16 +93,18 @@
               </div>
             </div>
             <p>OU COMECE COM SEUS DADOS</p>
-            <form action="">
+            <form id="authFormNew" action="">
             <label for="emailNew"></label>
             <input type="email" id="emailNewUser" name="emailNew" placeholder="seu_email@exemplo.com">
 
             <label for="passwordNew"></label>
             <input type="password" id="passwordNewUser" name="passwordNew" placeholder="Sua senha">
 
-            <input type="password" id="ConfirmPassword" placeholder="confirme sua senha">
+            <input type="password" id="ConfirmPassword" name="passwordNewConfirm" placeholder="confirme sua senha">
           </form>
           <p id="ResponderAuthNewUser">as senhas não são iguais</p>
+          <button CLASS="ButtonStyleBlue" onclick="NewUser()">criar conta</button>
+          <button CLASS="ButtonStyleBlue" onclick="signOut()">logout</button>
           <button CLASS="ButtonStyleBlue" onclick="showUserContent()">CONTINUAR</button>
 
           <div id="containerToggleNewUser">

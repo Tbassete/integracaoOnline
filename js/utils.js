@@ -11,6 +11,7 @@ var sectionConcluded = document.getElementById('sectionConcluded')
 var userProfile = document.getElementById('userProfile')
 var ShowQuests = document.getElementById('showQuests')
 var authForm = document.getElementById('authForm')
+var authFormNew = document.getElementById('authFormNew')
 function showItem(element) {
     element.classList.add('transition-item');
   
@@ -160,7 +161,7 @@ function showQuests1(){
 function showError(prefix, error) {
   
   console.log(error.code);
-  hideItem(loading);
+  // hideItem(loading);
 
   switch (error.code) {
     case 'auth/invalid-email':

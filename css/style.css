@@ -113,7 +113,7 @@ body {
   width: 100vw;
   height: fit-content;
 
-  & #authForm{
+  & #authFormDiv{
     max-width: 80vw;
     display: flex;
     flex-direction: column;
