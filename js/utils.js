@@ -5,6 +5,7 @@ var white = document.getElementById('white')
 var white2 = document.getElementById('white2')
 var step2 = document.getElementById('step2')
 var step3 = document.getElementById('step3')
+var step35 = document.getElementById('step35')
 var step4 = document.getElementById('step4')
 var sectionVideos = document.getElementById('sectionVideos')
 var sectionConcluded = document.getElementById('sectionConcluded')
@@ -12,6 +13,8 @@ var userProfile = document.getElementById('userProfile')
 var ShowQuests = document.getElementById('showQuests')
 var authForm = document.getElementById('authForm')
 var authFormNew = document.getElementById('authFormNew')
+var UserContent = document.getElementById('UserContent')
+
 function showItem(element) {
     element.classList.add('transition-item');
   
@@ -106,16 +109,52 @@ function showtep1() {
 setInterval(showtep1, 3600000);
 
 
-function showUserContent(){
+function showUserContent(user) {
+    // hideItem(step2);
 
-    hideItem(step2)
-    showItem(step3)
-    updateVideoStyles();
-    // if(verify = false){
-    //     showItem(step3)
-    // }else{
-    //     showItem(step4)
-    // }
+    const userId = user.uid;
+    const dbRefUsers = firebase.database().ref('users');
+
+
+    dbRefUsers.once('value')
+        .then(snapshot => {
+            const usersData = snapshot.val();
+
+            if (usersData && usersData[userId] && usersData[userId].dataUpdated === true) {
+                if (user.emailVerified) {
+                  showItem(step4);
+                  hideItem(step3)
+                  // if(step3){
+                  // }
+                }else{
+                  hideItem(step3)
+                  showItem(step35);
+                  sendEmailVerification()
+                }
+            } else {
+                showItem(step3);
+            }
+        })
+        .catch(error => {
+            console.error("Erro ao buscar dados do usuário:", error);
+            showItem(step3); // fallback seguro
+        });
+}
+
+
+
+function sendEmailVerification(){
+    // showItem(loading)
+    var user = firebase.auth().currentUser
+    user.sendEmailVerification(actionCodeSettings).then(function(){
+        alert('email de verificação foi enviado')
+    }).catch(function(error){
+      console.log(error)
+        // showError('falha ao enviar email de verificação '+ error)
+    }).finally(function(){
+        // hideItem(loading)
+    })
+    
 }
 
 function showstep4(){
@@ -180,5 +219,5 @@ var dbRefUsers = database.ref('users')
 var actionCodeSettings = {
   // url: 'https://todo-13563.firebaseapp.com' //voltar para esse depois
   // url: 'https://megatecabrasil.web.app/'
-  URL: 'https://127.0.0.1'
+  url: 'https://127.0.0.1:5504'
 }

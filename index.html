@@ -39,7 +39,7 @@
 
 
 
-        </section>
+      </section>
         <div id="white"></div>
         <div id="white2"></div>
 
@@ -67,9 +67,9 @@
               <label for="password"></label>
               <input type="password" id="passwordUser" name="password">
             </form>
-            <button CLASS="ButtonStyleBlue" onclick="showUserContent()">CONTINUAR</button>
-            <button CLASS="ButtonStyleBlue" onclick="loginWithPassword()">acessar</button>
-            <button CLASS="ButtonStyleBlue" onclick="signOut()">logout</button>
+            <!-- <button CLASS="ButtonStyleBlue" onclick="showUserContent()">CONTINUAR</button> -->
+            <button CLASS="ButtonStyleBlue" onclick="loginWithPassword()">CONTINUAR</button>
+
             <div id="loginWithOthers" onclick="signInWithGoogle()">
               <p>OU FAÇA LOGIN COM</p>
               <img src="img/logoGoogle.png" alt="">
@@ -103,9 +103,9 @@
             <input type="password" id="ConfirmPassword" name="passwordNewConfirm" placeholder="confirme sua senha">
           </form>
           <p id="ResponderAuthNewUser">as senhas não são iguais</p>
-          <button CLASS="ButtonStyleBlue" onclick="NewUser()">criar conta</button>
-          <button CLASS="ButtonStyleBlue" onclick="signOut()">logout</button>
-          <button CLASS="ButtonStyleBlue" onclick="showUserContent()">CONTINUAR</button>
+          <button CLASS="ButtonStyleBlue" onclick="NewUser()">CRIAR CONTA</button>
+        
+          <!-- <button CLASS="ButtonStyleBlue" onclick="showUserContent()">CONTINUAR</button> -->
 
           <div id="containerToggleNewUser">
             <p>JÁ TEM CADASTRO?</p>
@@ -119,38 +119,51 @@
     </section>
 
 <!--  -->
+
     <section id="step3" class="startHidden">
       <div id="coletaDados">
         <h1>Vamos começar pelos seus dados!</h1>
         <form action="">
           <label for="Nome">Seu nome completo:</label>
-          <input type="text" name="Nome" class="InputClass" placeholder="Jhon Doe Rogerio ">
+          <input type="text" name="Nome" class="InputClass" placeholder="Jhon Doe Rogerio " required>
 
           <label for="cargo">Seu cargo</label>
-          <select name="cargo" id="cargoUser" class="InputClass">
+          <select name="cargo" id="cargoUser" class="InputClass" required>
             <option value="operador">operador</option>
             <option value="zelador">zelador</option>
           </select>
 
           <label for="Turno">Seu turno</label>
-          <select name="Turno" id="turnoUser" class="InputClass">
+          <select name="Turno" id="turnoUser" class="InputClass" required>
             <option value="1">1° turno</option>
             <option value="2">2° turno</option>
             <option value="3">3° turno</option>
           </select>
 
           <label for="área">Sua área</label>
-          <select name="área" id="areaUser" class="InputClass">
+          <select name="área" id="areaUser" class="InputClass" required>
             <option value="produção">produção</option>
             <option value="logistica">logistica</option>
             <option value="limpeza">limpeza</option>
           </select>
 
           <label for="admissao">Data de admissão</label>
-          <input type="date" name="admissao" id="admissaoUser" class="InputClass">
+          <input type="date" name="admissao" id="admissaoUser" class="InputClass" required>
         </form>
         <div id="containterButtonColetaDados">
-          <button class="ButtonStyleBlue" onclick="showstep4()">avançar</button>
+          <!-- <button class="ButtonStyleBlue" onclick="showstep4()">avançar</button> -->
+          <button class="ButtonStyleBlue" onclick="updateProfile()">avançar</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="step35" class="startHidden">
+      <div id="divstep35">
+        <div id="confirmEmail">
+          <h1>AGORA CONFIRME O SEU EMAIL</h1>
+          <img src="img/opgmail.png" alt="" id="segurandoEmail">
+          <p>enviamos para sua caixa de entrada uma confirmação de email.</p>
+          <a class="ButtonStyleBlue" href="https://mail.google.com/" target="_blank">VERIFICAR</a>
         </div>
       </div>
     </section>
@@ -283,6 +296,7 @@
             <p>20/01/2025</p>
           </div>
         </div>
+          <button CLASS="ButtonStyleBlue" onclick="signOut()">logout</button>
       </div>
 
       <!-- section controls -->

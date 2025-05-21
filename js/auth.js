@@ -50,8 +50,10 @@ function NewUser(){
 
 firebase.auth().onAuthStateChanged(function(user){
     // hideItem(loading)
+    
     if(user){
-        // console.log("logou")
+        console.log("logou")
+        hideItem(step2)
        showUserContent(user)
     }else{
         console.log("nao logou")
@@ -61,22 +63,57 @@ firebase.auth().onAuthStateChanged(function(user){
 
 function showAuth(){
 //   hideItem(headerBoots)
-  hideItem(userContent)
-  showItem(step2)
+showItem(step2)
+  hideItem(step4)
+}
+
+function updateProfile() {
+  const auth = firebase.auth();
+  const user = auth.currentUser;
+
+  // Captura os valores dos campos do formulário mantendo case-sensitive
+  const nome = document.querySelector('input[name="Nome"]').value;
+  const cargo = document.querySelector('#cargoUser').value;
+  const turno = document.querySelector('#turnoUser').value;
+  const area = document.querySelector('#areaUser').value;
+  const admissao = document.querySelector('#admissaoUser').value;
+
+    // Verifica se algum campo está vazio
+//   if (!nome || !cargo || !turno || !area || !admissao) {
+//     alert("Por favor, preencha todos os campos antes de prosseguir.");
+//     return;
+//   }
+
+  // Atualiza o perfil do usuário no Firebase Authentication
+  user.updateProfile({
+    displayName: nome
+  })
+  .then(() => {
+    // Atualiza informações adicionais no Realtime Database com nome em letra maiúscula
+    var database = firebase.database();
+    var dbRefUsers = database.ref('users');
+    var dataUpdated = true
+    return dbRefUsers.child(user.uid).set({
+      cargo: cargo.toUpperCase(),
+      turno: turno.toUpperCase(),
+      area: area.toUpperCase(),
+      admissao: admissao,
+      nomeCompleto: nome,
+      nomeCompletoUpperCase:nome.toUpperCase(),
+      dataUpdated: dataUpdated,
+    });
+  })
+  .then(() => {
+      console.log("Perfil e dados atualizados com sucesso!");
+      showUserContent(user); // avança para a próxima etapa
+
+  })
+  .catch(error => {
+    console.error("Erro ao atualizar perfil:", error);
+  });
 }
 
 
-//mostrar conetudo para usuarios authenticated
-function showUserContent(user){
-
-//   userImg2.src = user.photoURL ? user.photoURL : 'img/unknownUser.png'
-//   userImg.src = user.photoURL ? user.photoURL : 'img/unknownUser.png'
-//   userName.innerHTML = user.displayName
-//   userEmail.innerHTML= user.email
-  hideItem(step2)
-  showItem(userContent)
-
-}
 
 authForm.onsubmit = function(event){
     // showItem(loading)
