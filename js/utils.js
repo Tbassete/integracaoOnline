@@ -14,7 +14,7 @@ var ShowQuests = document.getElementById('showQuests')
 var authForm = document.getElementById('authForm')
 var authFormNew = document.getElementById('authFormNew')
 var UserContent = document.getElementById('UserContent')
-
+var loading = document.getElementById('loading')
 function showItem(element) {
     element.classList.add('transition-item');
   
@@ -111,7 +111,10 @@ setInterval(showtep1, 3600000);
 
 function showUserContent(user) {
     // hideItem(step2);
+    if(!step1){
 
+      showItem2(loading)
+    }
     const userId = user.uid;
     const dbRefUsers = firebase.database().ref('users');
 
@@ -124,27 +127,31 @@ function showUserContent(user) {
                 if (user.emailVerified) {
                   showItem(step4);
                   hideItem(step3)
+                  hideItem2(loading)
                   // if(step3){
                   // }
                 }else{
                   hideItem(step3)
                   showItem(step35);
+                  hideItem2(loading)
                   sendEmailVerification()
                 }
             } else {
                 showItem(step3);
+                hideItem2(loading)
             }
         })
         .catch(error => {
             console.error("Erro ao buscar dados do usuário:", error);
             showItem(step3); // fallback seguro
+            hideItem2(loading)
         });
 }
 
 
 
 function sendEmailVerification(){
-    // showItem(loading)
+    showItem2(loading)
     var user = firebase.auth().currentUser
     user.sendEmailVerification(actionCodeSettings).then(function(){
         alert('email de verificação foi enviado')
@@ -152,7 +159,7 @@ function sendEmailVerification(){
       console.log(error)
         // showError('falha ao enviar email de verificação '+ error)
     }).finally(function(){
-        // hideItem(loading)
+        hideItem2(loading)
     })
     
 }
@@ -218,6 +225,6 @@ var dbRefUsers = database.ref('users')
 
 var actionCodeSettings = {
   // url: 'https://todo-13563.firebaseapp.com' //voltar para esse depois
-  // url: 'https://megatecabrasil.web.app/'
-  url: 'https://127.0.0.1:5504'
+  url: 'welcome-to-megatech.web.app'
+  // url: 'https://127.0.0.1:5504'
 }

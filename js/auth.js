@@ -2,25 +2,31 @@ firebase.auth().languageCode = 'pt-br'
 
 
 function loginWithPassword(event){
+        showItem2(loading)
         // event.preventDefault()
                 firebase.auth().signInWithEmailAndPassword(authForm.email.value, 
             authForm.password.value ).catch(function (error){
                     showError('falha no acesso ', error)
+            }).finally(function(){
+                hideItem(loading)
             })
 }
 
 // função que permite o usuario se deslogar do app 
 function signOut(){
-
+    showItem2(loading)
     firebase.auth().signOut().catch(function(error){
         showError('erro ao sair '+ error)
+        hideItem2(loading)
+    }).finally(function(){
+        hideItem2(loading)
     })
     // hideItem(LogOut)
 }
 
 function NewUser(){
             const auth = firebase.auth();
-    
+        showItem2(loading)
         auth.createUserWithEmailAndPassword(authFormNew.emailNew.value, authFormNew.passwordNew.value)
             .then((userCredential) => {
                 const user = userCredential.user;
@@ -32,37 +38,40 @@ function NewUser(){
             })
             .then(() => {
                 console.log("Usuário criado e nome atualizado com sucesso!");
+                hideItem2(loading)
             })
             .catch((error) => {
                 showError('Falha no cadastro', error);
+                hideItem2(loading)
             });
 }
 
   function signInWithGoogle(){
-    // showItem(loading)
+    showItem2(loading)
     firebase.auth().signInWithPopup(new firebase.auth.GoogleAuthProvider()).catch(function(error){
         console.log(error)
     }).finally(function(){
-        // hideItem(loading)
+        hideItem2(loading)
         console.log("logou pela google")
     })
   }
 
 firebase.auth().onAuthStateChanged(function(user){
-    // hideItem(loading)
-    
+    // showItem2(loading)
     if(user){
         console.log("logou")
-        hideItem(step2)
-       showUserContent(user)
+        hideItem2(step2)
+        showUserContent(user)
+        hideItem2(loading)
     }else{
+        hideItem2(loading)
         console.log("nao logou")
         showAuth()
     }
 })
 
 function showAuth(){
-//   hideItem(headerBoots)
+
 showItem(step2)
   hideItem(step4)
 }
@@ -70,7 +79,7 @@ showItem(step2)
 function updateProfile() {
   const auth = firebase.auth();
   const user = auth.currentUser;
-
+ showItem2(loading)
   // Captura os valores dos campos do formulário mantendo case-sensitive
   const nome = document.querySelector('input[name="Nome"]').value;
   const cargo = document.querySelector('#cargoUser').value;
@@ -79,10 +88,11 @@ function updateProfile() {
   const admissao = document.querySelector('#admissaoUser').value;
 
     // Verifica se algum campo está vazio
-//   if (!nome || !cargo || !turno || !area || !admissao) {
-//     alert("Por favor, preencha todos os campos antes de prosseguir.");
-//     return;
-//   }
+  if (!nome || !cargo || !turno || !area || !admissao) {
+    alert("Por favor, preencha todos os campos antes de prosseguir.");
+    hideItem2(loading)
+    return;
+  }
 
   // Atualiza o perfil do usuário no Firebase Authentication
   user.updateProfile({
@@ -106,40 +116,13 @@ function updateProfile() {
   .then(() => {
       console.log("Perfil e dados atualizados com sucesso!");
       showUserContent(user); // avança para a próxima etapa
-
+    hideItem2(loading)
   })
   .catch(error => {
     console.error("Erro ao atualizar perfil:", error);
+    hideItem2(loading)
   });
 }
 
 
 
-authForm.onsubmit = function(event){
-    // showItem(loading)
-    // event.preventDefault()
-    if(authForm.submitAuthForm.innerHTML == 'Acessar'){ 
-        firebase.auth().signInWithEmailAndPassword(authForm.email.value, 
-            authForm.password.value ).catch(function (error){
-                    showError('falha no acesso ', error)
-            })
-    }else{
-        const auth = firebase.auth();
-    
-        auth.createUserWithEmailAndPassword(authForm.email.value, authForm.password.value)
-            .then((userCredential) => {
-                const user = userCredential.user;
-    
-                // Atualiza o perfil do usuário com o nome
-                return user.updateProfile({
-                    displayName: authForm.name.value
-                });
-            })
-            .then(() => {
-                console.log("Usuário criado e nome atualizado com sucesso!");
-            })
-            .catch((error) => {
-                showError('Falha no cadastro', error);
-            });
-    }
-}
