@@ -7,6 +7,7 @@ function loginWithPassword(event){
                 firebase.auth().signInWithEmailAndPassword(authForm.email.value, 
             authForm.password.value ).catch(function (error){
                     showError('falha no acesso ', error)
+                    showItem2(ResponderAuth)
             }).finally(function(){
                 hideItem(loading)
             })
@@ -41,7 +42,9 @@ function NewUser(){
                 hideItem2(loading)
             })
             .catch((error) => {
-                showError('Falha no cadastro', error);
+                // showError('Falha no cadastro', error);
+                ResponderAuthNewUser.innerHTML =`${error}`
+                showItem2(ResponderAuthNewUser)
                 hideItem2(loading)
             });
 }
@@ -72,9 +75,119 @@ firebase.auth().onAuthStateChanged(function(user){
 
 function showAuth(){
 
-showItem(step2)
+  showItem(step2)
   hideItem(step4)
+  if(step35){
+    hideItem(step35)
+  }
 }
+
+    //reset de senha
+
+  function  sendPasswordResetEmail(){
+    var email = authForm.email.value
+    if(email){
+        showItem2(loading)
+        firebase.auth().sendPasswordResetEmail(email, actionCodeSettings).then(function(){
+            ResponderAuth.innerHTML = `ENVIAMOS O EMAIL PARA REDEFINIR A SENHA NO SEU EMAIL: ${email}`
+            hideItem2(loading)
+            showItem2(ResponderAuth)
+        }).catch(function(error){
+            ResponderAuth.innerHTML = `falha ao enviar email para redefinir a senha ${error}`
+            showItem2(ResponderAuth)
+        }).finally(function(){
+            hideItem2(loading)
+        })
+    }else{
+        ResponderAuth.innerHTML = 'PREENCHA O CAMPO DE EMAIL COM O SEU EMAIL'
+    }
+  }
+
+//   função para atualizar a foto de perfil
+function showFormUpdateImgProfile(){
+    showItem(updatePhoto)
+    hideItem(step3)
+}
+
+
+const profilePhotoInput = document.getElementById('profilePhotoInput');
+const imagePreview = document.getElementById('imagePreview');
+
+
+profilePhotoInput.addEventListener('change', function () {
+    const file = this.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            imagePreview.src = e.target.result;
+            imagePreview.style.display = 'block';
+        };
+        reader.readAsDataURL(file);
+    } else {
+        imagePreview.style.display = 'none';
+        imagePreview.src = '';
+    }
+});
+
+const profilePhotoForm = document.getElementById('profilePhotoForm');
+// const profilePhotoInput = document.getElementById('profilePhotoInput');
+const uploadProgress = document.getElementById('uploadProgress');
+const uploadPercent = document.getElementById('uploadPercent');
+
+profilePhotoForm.addEventListener('submit', function(event) {
+    event.preventDefault();
+    
+    const file = profilePhotoInput.files[0];
+    if (!file) {
+        responderImgUpdate.innerHTML = 'POR FAVOR, SELECIONE UMA IMAGEM';
+        responderImgUpdate.style.color = 'red'
+        return;
+    }
+
+    const storageRef = firebase.storage().ref();
+    const user = firebase.auth().currentUser;
+    const photoRef = storageRef.child(`profilePhotos/${user.uid}/${file.name}`);
+    const uploadTask = photoRef.put(file);
+
+    // Mostrar barra de progresso
+    uploadProgress.style.display = 'block';
+    uploadPercent.style.display = 'inline';
+
+    uploadTask.on(
+        'state_changed',
+        function(snapshot) {
+            const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            uploadProgress.value = progress;
+            uploadPercent.textContent = Math.floor(progress) + '%';
+        },
+        function(error) {
+            console.error('Erro no upload:', error);
+            alert('Erro ao enviar a foto.');
+            uploadProgress.style.display = 'none';
+            uploadPercent.style.display = 'none';
+        },
+        function() {
+            uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+              
+                return user.updateProfile({
+                    photoURL: downloadURL
+                });
+            }).then(function() {
+                alert('Foto de perfil atualizada com sucesso!');
+                uploadProgress.style.display = 'none';
+                uploadPercent.style.display = 'none';
+                hideItem(updatePhoto);
+                showItem(UserContent)
+                hideItem2(loading)
+            }).catch(function(error) {
+                console.error(error);
+                // alert('Erro ao atualizar o perfil.');
+            });
+        }
+    );
+});
+
+
 
 function updateProfile() {
   const auth = firebase.auth();
@@ -89,7 +202,10 @@ function updateProfile() {
 
     // Verifica se algum campo está vazio
   if (!nome || !cargo || !turno || !area || !admissao) {
-    alert("Por favor, preencha todos os campos antes de prosseguir.");
+    // alert("Por favor, preencha todos os campos antes de prosseguir.");
+    h1ColetaDados.innerHTML = 'Por favor, preencha todos os campos antes de prosseguir.'
+    h1ColetaDados.style.color = 'red';
+    h1ColetaDados.style.fontSize = '1.9rem';
     hideItem2(loading)
     return;
   }

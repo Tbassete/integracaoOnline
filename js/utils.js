@@ -15,6 +15,19 @@ var authForm = document.getElementById('authForm')
 var authFormNew = document.getElementById('authFormNew')
 var UserContent = document.getElementById('UserContent')
 var loading = document.getElementById('loading')
+var ResponderAuthNewUser = document.getElementById('ResponderAuthNewUser')
+var ResponderAuth = document.getElementById('ResponderAuth')
+var h1ColetaDados = document.getElementById('h1ColetaDados')
+var redefinirSenha = document.getElementById('redefinirSenha')
+var userImg = document.getElementById('userImg')
+var admissaoUser2 = document.getElementById('admissaoUser2')
+var areaUser2 = document.getElementById('areaUser2')
+var turnoUser2 = document.getElementById('turnoUser2')
+var userEmail2 = document.getElementById('userEmail2')
+var userName = document.getElementById('userName')
+var cargoUser2 = document.getElementById('cargoUser2')
+var responderImgUpdate = document.getElementById('responderImgUpdate')
+
 function showItem(element) {
     element.classList.add('transition-item');
   
@@ -108,7 +121,11 @@ function showtep1() {
 // Chama a função a cada 1 hora
 setInterval(showtep1, 3600000);
 
-
+function closeUpdates(){
+  const auth = firebase.auth();
+  const user = auth.currentUser;
+  showUserContent(user)
+}
 function showUserContent(user) {
     // hideItem(step2);
     if(!step1){
@@ -125,11 +142,26 @@ function showUserContent(user) {
 
             if (usersData && usersData[userId] && usersData[userId].dataUpdated === true) {
                 if (user.emailVerified) {
+                  if(!user.photoURL){
+                     showFormUpdateImgProfile()
+                     imagePreview.src = user.photoURL ? user.photoURL : 'img/unknownUser.png'
+                  }else{
+                  // getVideos()
                   showItem(step4);
                   hideItem(step3)
                   hideItem2(loading)
-                  // if(step3){
-                  // }
+                  
+                  // usersData[userId].dataUpdated
+                    
+                    userImg.src = user.photoURL ? user.photoURL : 'img/unknownUser.png'
+                    userName.innerHTML = user.displayName
+                    userEmail2.innerHTML= user.email
+                    areaUser2.innerHTML = usersData[userId].area || 'Não informado';
+                    turnoUser2.innerHTML = usersData[userId].turno || 'Não informado';
+                    admissaoUser2.innerHTML = usersData[userId].admissao || 'Não informado';
+                    cargoUser2.innerHTML = usersData[userId].cargo || 'Não informado';
+                    console.log(cargoUser2)
+                  }
                 }else{
                   hideItem(step3)
                   showItem(step35);
@@ -212,10 +244,13 @@ function showError(prefix, error) {
   switch (error.code) {
     case 'auth/invalid-email':
     case 'auth/wrong-password':
-      alert(prefix + ' email ou senha incorretos');
+    // case 'auth/internal-error':
+      ResponderAuth.innerHTML = `${prefix}   email ou senha incorretos`
+      showItem2(redefinirSenha)
       break;
     default:
-      alert(prefix + ' ' + error.message);
+        ResponderAuth.innerHTML = `${prefix}  email ou senha incorretos '${error.code}'  `
+        showItem2(redefinirSenha)
       break;
   }
 }
@@ -225,6 +260,6 @@ var dbRefUsers = database.ref('users')
 
 var actionCodeSettings = {
   // url: 'https://todo-13563.firebaseapp.com' //voltar para esse depois
-  url: 'welcome-to-megatech.web.app'
+  url: 'https://welcome-to-megatech.web.app'
   // url: 'https://127.0.0.1:5504'
 }
