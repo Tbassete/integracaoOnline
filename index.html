@@ -348,7 +348,51 @@
             <p id="admissaoUser2"></p>
           </div>
           <button CLASS="ButtonStyleBlue" onclick="signOut()">logout</button>
+          <button class="ButtonStyleBlue" onclick="ShowFormPostarVideosPerguntas()">Postar novo video e perguntas</button>
         </div>
+      </div>
+      
+      <div id="FormPostarVideosPerguntas" class="startHidden">
+        <form id="todoForm" onsubmit="event.preventDefault(); adicionarVideosPerguntas();">
+          <h2>Adicionar Novo Vídeo</h2>
+        
+          
+          <label for="file">Foto da Capa</label>
+          <input type="file" name="file" id="file" accept="image/*" required />
+          <img id="previewImage" style="display: none;" />
+          
+          <label for="pergunta">Pergunta</label>
+          <input type="text" name="pergunta" id="pergunta" required />
+
+          <label for="linkVideo">Link do Vídeo</label>
+          <input type="url" name="linkVideo" id="linkVideo" required />
+        
+          <fieldset>
+            <legend>Respostas</legend>
+        
+            <label>
+              <input type="radio" name="respostaCorreta" value="1" required />
+              <input type="text" name="resposta1" id="resposta1" placeholder="Resposta 1" required />
+            </label>
+        
+            <label>
+              <input type="radio" name="respostaCorreta" value="2" />
+              <input type="text" name="resposta2" id="resposta2" placeholder="Resposta 2" required />
+            </label>
+        
+            <label>
+              <input type="radio" name="respostaCorreta" value="3" />
+              <input type="text" name="resposta3" id="resposta3" placeholder="Resposta 3" required />
+            </label>
+        
+            <label>
+              <input type="radio" name="respostaCorreta" value="4" />
+              <input type="text" name="resposta4" id="resposta4" placeholder="Resposta 4" required />
+            </label>
+          </fieldset>
+        
+          <button type="submit">Adicionar Vídeo</button>
+        </form>
       </div>
 
       <!-- section controls -->

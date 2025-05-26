@@ -27,6 +27,7 @@ var userEmail2 = document.getElementById('userEmail2')
 var userName = document.getElementById('userName')
 var cargoUser2 = document.getElementById('cargoUser2')
 var responderImgUpdate = document.getElementById('responderImgUpdate')
+var FormPostarVideosPerguntas = document.getElementById('FormPostarVideosPerguntas')
 
 function showItem(element) {
     element.classList.add('transition-item');
@@ -117,6 +118,8 @@ function showtep1() {
     showItem2(white);
     showItem2(white2);
   }
+
+
   
 // Chama a função a cada 1 hora
 setInterval(showtep1, 3600000);
@@ -160,7 +163,7 @@ function showUserContent(user) {
                     turnoUser2.innerHTML = usersData[userId].turno || 'Não informado';
                     admissaoUser2.innerHTML = usersData[userId].admissao || 'Não informado';
                     cargoUser2.innerHTML = usersData[userId].cargo || 'Não informado';
-                    console.log(cargoUser2)
+                    // console.log(cargoUser2)
                   }
                 }else{
                   hideItem(step3)
@@ -199,6 +202,7 @@ function sendEmailVerification(){
 function showstep4(){
     hideItem(step3)
     showItem(step4)
+
 }
 
 function showConcluded(){
@@ -206,6 +210,7 @@ function showConcluded(){
     hideItem(sectionVideos)
     hideItem(ShowQuests)
     showItem(sectionConcluded)
+    hideItem(FormPostarVideosPerguntas)
 }
 
 function showProfile(){
@@ -213,6 +218,7 @@ function showProfile(){
     hideItem(sectionVideos)
     hideItem(ShowQuests)
     showItem(userProfile)
+    hideItem(FormPostarVideosPerguntas)
 }
 
 function showVideos(){
@@ -220,7 +226,16 @@ function showVideos(){
     hideItem(sectionConcluded)
     hideItem(ShowQuests)
     showItem(sectionVideos)
+    hideItem(FormPostarVideosPerguntas)
 }
+
+function ShowFormPostarVideosPerguntas(){
+  hideItem(userProfile)
+  hideItem(sectionConcluded)
+  hideItem(ShowQuests)
+  hideItem(sectionVideos)
+  showItem(FormPostarVideosPerguntas)
+} 
 
 function editProfile(){
 
@@ -257,6 +272,7 @@ function showError(prefix, error) {
 
 var database = firebase.database()
 var dbRefUsers = database.ref('users')
+var dbRefVideos = database.ref('videos');
 
 var actionCodeSettings = {
   // url: 'https://todo-13563.firebaseapp.com' //voltar para esse depois
