@@ -28,7 +28,7 @@ var userName = document.getElementById('userName')
 var cargoUser2 = document.getElementById('cargoUser2')
 var responderImgUpdate = document.getElementById('responderImgUpdate')
 var FormPostarVideosPerguntas = document.getElementById('FormPostarVideosPerguntas')
-
+var popupSucesso = document.getElementById('popupSucesso')
 function showItem(element) {
     element.classList.add('transition-item');
   
@@ -151,6 +151,7 @@ function showUserContent(user) {
                   }else{
                   // getVideos()
                   showItem(step4);
+                  carregarVideosFirebase()
                   hideItem(step3)
                   hideItem2(loading)
                   
@@ -202,7 +203,7 @@ function sendEmailVerification(){
 function showstep4(){
     hideItem(step3)
     showItem(step4)
-
+    
 }
 
 function showConcluded(){
@@ -227,6 +228,7 @@ function showVideos(){
     hideItem(ShowQuests)
     showItem(sectionVideos)
     hideItem(FormPostarVideosPerguntas)
+    carregarVideosFirebase()
 }
 
 function ShowFormPostarVideosPerguntas(){
@@ -236,7 +238,14 @@ function ShowFormPostarVideosPerguntas(){
   hideItem(sectionVideos)
   showItem(FormPostarVideosPerguntas)
 } 
+function mostrarPopupConcluido() {
+  showItem(popupSucesso)
+}
 
+function fecharPopupConcluido() {
+  hideItem(popupSucesso)
+  showVideos()
+}
 function editProfile(){
 
 

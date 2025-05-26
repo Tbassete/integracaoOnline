@@ -252,7 +252,7 @@
 
           </div>
 
-          <div id="soParaDarVolume" class="containerIframe"></div>
+          <!-- <div id="soParaDarVolume" class="containerIframe"></div> -->
 
         </div>
       </div>
@@ -288,6 +288,15 @@
                 <button class="ButtonStyleBlue">CONLCUIR</button>
           </div>
           </div>
+      </div>
+      <div id="popupSucesso" class="startHidden">
+        <div idid="popupSucessoCss">
+        <div class="popup-content">
+        <h2>🎉 Parabéns!</h2>
+          <p>Você concluiu esse vídeo com sucesso.</p>
+          <button onclick="fecharPopupConcluido()">Fechar</button>
+        </div>
+        </div>
       </div>
       <!-- fim section videos -->
       <div id="sectionConcluded" class="startHidden">
@@ -367,7 +376,7 @@
           <label for="linkVideo">Link do Vídeo</label>
           <input type="url" name="linkVideo" id="linkVideo" required />
         
-          <fieldset>
+          <fieldset id="fieldsetForm">
             <legend>Respostas</legend>
         
             <label>
@@ -391,7 +400,7 @@
             </label>
           </fieldset>
         
-          <button type="submit">Adicionar Vídeo</button>
+          <button type="submit" class="ButtonStyleBlue" >Adicionar Vídeo</button>
         </form>
       </div>
 
