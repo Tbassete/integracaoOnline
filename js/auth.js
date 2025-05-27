@@ -177,8 +177,8 @@ profilePhotoForm.addEventListener('submit', function(event) {
                 uploadProgress.style.display = 'none';
                 uploadPercent.style.display = 'none';
                 hideItem(updatePhoto);
-                showItem(UserContent)
                 hideItem2(loading)
+                showItem(UserContent)
             }).catch(function(error) {
                 console.error(error);
                 // alert('Erro ao atualizar o perfil.');

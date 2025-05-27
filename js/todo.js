@@ -22,6 +22,7 @@ function adicionarVideosPerguntas() {
                 const data = {
 
                   imgUrl: downloadURL,
+                  nomeVideo: todoForm.nomeVideo.value,
                   // pergunta: todoForm.pergunta.value,
                   pergunta: todoForm.pergunta.value,
                   linkVideo: todoForm.linkVideo.value,
@@ -140,31 +141,6 @@ function carregarVideosFirebase() {
           allowfullscreen>
           </iframe>
           `;
-          // Converte automaticamente links padrão do YouTube em formato embed
-
-          // // Atualiza a pergunta e respostas
-          // containerPerguntas.innerHTML = `
-          //   <h2>${video.pergunta}</h2>
-          //   <form>
-          //     <label>
-          //       <input type="radio" name="pergunta" value="1">
-          //       ${video.resposta1}
-          //     </label>
-          //     <label>
-          //       <input type="radio" name="pergunta" value="2">
-          //       ${video.resposta2}
-          //     </label>
-          //     <label>
-          //       <input type="radio" name="pergunta" value="3">
-          //       ${video.resposta3}
-          //     </label>
-          //     <label>
-          //       <input type="radio" name="pergunta" value="4">
-          //       ${video.resposta4}
-          //     </label>
-          //   </form>
-          //   <button class="ButtonStyleBlue" verificarResposta(${video.key}, ${video.correta})>CONCLUIR</button>
-          // `;
           
 containerPerguntas.innerHTML = `
   <h2>${video.pergunta}</h2>
@@ -173,6 +149,7 @@ containerPerguntas.innerHTML = `
     <label><input type="radio" name="pergunta" value="2">${video.resposta2}</label>
     <label><input type="radio" name="pergunta" value="3">${video.resposta3}</label>
     <label><input type="radio" name="pergunta" value="4">${video.resposta4}</label>
+    <p id="responderRespostas"></p>
     <button type="submit" class="ButtonStyleBlue">CONCLUIR</button>
   </form>
 `;
@@ -229,17 +206,14 @@ listVideos.appendChild(espacoExtra);
 
 function verificarResposta(videoId, respostaCorreta) {
   const user = firebase.auth().currentUser;
-  if (!user) {
-    alert('Usuário não autenticado.');
-    return;
-  }
 
   // Pega qual input está marcado
   const respostaSelecionada = document.querySelector('input[name="pergunta"]:checked');
 
   if (!respostaSelecionada) {
-    alert('Selecione uma resposta para continuar.');
-    return;
+      var responderRespostas = document.getElementById('responderRespostas')
+
+      responderRespostas.innerHTML = 'SELECIONE A SUA RESPOSTA'
   }
 
   const respostaUsuario = respostaSelecionada.value;
@@ -255,7 +229,7 @@ function verificarResposta(videoId, respostaCorreta) {
         console.error('Erro ao marcar vídeo como concluído:', error);
       });
   } else {
-    alert('Resposta incorreta. Tente novamente.');
+    mostrarPopupNaoConcluido()
   }
 }
 
@@ -306,4 +280,203 @@ function imprimirCertificado() {
     .catch(error => {
       console.error('Erro ao verificar certificado:', error);
     });
+}
+
+
+function carregarVideosConcluidos() {
+  const user = firebase.auth().currentUser;
+  if (!user) {
+    alert('Usuário não autenticado.');
+    return;
+  }
+
+  const uid = user.uid;
+  const db = firebase.database();
+  const dbRefVideos = db.ref('videos');
+  const refConcluidos = db.ref(`users/${uid}/videosConcluded`);
+
+  const sectionConcluded = document.getElementById('sectionConcluded');
+  const listConcluded = document.getElementById('listConcluded');
+  const showQuests = document.getElementById('showQuests');
+  const containerIframe = showQuests.querySelector('.containerIframe');
+  const containerPerguntas = document.getElementById('ContainerPerguntas');
+
+  refConcluidos.once('value').then(concluidosSnap => {
+    const concluidos = concluidosSnap.val() || {};
+
+    dbRefVideos.once('value').then(snapshot => {
+      // Limpa a lista mantendo o título
+      listConcluded.innerHTML = '<h1>Vídeos Concluídos</h1>';
+
+      snapshot.forEach(videoSnap => {
+        const video = videoSnap.val();
+        const videoId = videoSnap.key;
+
+        if (concluidos[videoId]) {
+          // Criação da estrutura do vídeo concluído
+          const videoDiv = document.createElement('div');
+          videoDiv.classList.add('allConcludedVideos');
+          videoDiv.id = videoId;
+          videoDiv.onclick = () => {
+            showQuests1();
+
+            // Embed seguro do YouTube
+            let embedUrl = video.linkVideo;
+            if (embedUrl.includes('watch?v=')) {
+              embedUrl = embedUrl.replace('watch?v=', 'embed/');
+            } else if (embedUrl.includes('youtu.be/')) {
+              const youtubeId = embedUrl.split('youtu.be/')[1].split('?')[0];
+              embedUrl = `https://www.youtube.com/embed/${youtubeId}`;
+            }
+
+            // Exibir vídeo
+            containerIframe.innerHTML = `
+              <iframe width="560" height="315"
+                src="${embedUrl}"
+                title="YouTube video player"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin"
+                allowfullscreen>
+              </iframe>
+            `;
+
+            // Exibir título e mensagem de conclusão
+            containerPerguntas.innerHTML = `
+              <h2>${video.pergunta}</h2>
+              <p style="margin-top: 1rem; font-weight: bold; color: green;">
+                Você já concluiu este vídeo ✅
+              </p>
+            `;
+          };
+
+          // Imagem da capa
+          const img = document.createElement('img');
+          img.src = video.imgUrl;
+
+          // Nome do vídeo
+          const p = document.createElement('p');
+          p.textContent = video.name || 'Vídeo Concluído';
+
+          // Adiciona elementos à div
+          videoDiv.appendChild(img);
+          videoDiv.appendChild(p);
+
+          // Insere o vídeo na lista
+          listConcluded.appendChild(videoDiv);
+        }
+      });
+
+      // 🔚 Adiciona a lista completa dentro da seção visível
+      sectionConcluded.appendChild(listConcluded);
+      sectionConcluded.classList.remove('startHidden');
+    });
+  }).catch(error => {
+    console.error('Erro ao carregar vídeos concluídos:', error);
+  });
+}
+
+
+async function listarTodosUsuarios(filtro = null) {
+  const db = firebase.database();
+  const usersRef = db.ref('users');
+  const videosRef = db.ref('videos');
+  const container = document.getElementById('usersContainer');
+  container.innerHTML = 'Carregando...';
+
+  console.log('🔍 Buscando dados dos usuários e vídeos...');
+
+  try {
+    const [usersSnap, videosSnap] = await Promise.all([
+      usersRef.once('value'),
+      videosRef.once('value')
+    ]);
+
+    console.log('✅ Dados carregados.');
+    console.log('📦 Usuários encontrados:', usersSnap.numChildren());
+    console.log('📦 Vídeos disponíveis:', videosSnap.numChildren());
+
+    const totalVideos = videosSnap.numChildren();
+    const usuarios = [];
+
+    usersSnap.forEach(userSnap => {
+      const user = userSnap.val();
+      const uid = userSnap.key;
+      const concluidos = user.videosConcluded ? Object.keys(user.videosConcluded).length : 0;
+
+      const dadosUsuario = {
+        uid,
+        nome: user.nomeCompleto || 'Sem nome',
+        admissao: user.admissao || '',
+        isAdmin: user.isAdmin || false,
+        concluidos,
+        concluiuTudo: concluidos === totalVideos
+      };
+
+      console.log('👤 Usuário:', dadosUsuario);
+      usuarios.push(dadosUsuario);
+    });
+
+    // Aplicar filtro
+    let filtrados = usuarios;
+    if (filtro === 'tempo') {
+      filtrados = usuarios.filter(u => u.admissao)
+        .sort((a, b) => new Date(a.admissao) - new Date(b.admissao));
+      console.log('📅 Filtro por tempo de casa aplicado.');
+    } else if (filtro === 'concluidos') {
+      filtrados = usuarios.filter(u => u.concluiuTudo);
+      console.log('✅ Filtro: somente quem concluiu todos os vídeos.');
+    } else if (filtro === 'naoConcluidos') {
+      filtrados = usuarios.filter(u => !u.concluiuTudo);
+      console.log('❌ Filtro: usuários que ainda não concluíram.');
+    }
+
+    console.log('🎯 Usuários após filtro:', filtrados.length);
+    container.innerHTML = '';
+
+    if (filtrados.length === 0) {
+      container.innerHTML = '<p>Nenhum usuário encontrado com este filtro.</p>';
+      return;
+    }
+
+    filtrados.forEach(u => {
+      const div = document.createElement('div');
+      div.className = 'userCard';
+
+      div.innerHTML = `
+        <p><strong>${u.nome}</strong></p>
+        <p>Admissão: ${u.admissao}</p>
+        <p>Status: ${u.isAdmin ? '👑 Admin' : 'Usuário comum'}</p>
+        <p>Vídeos concluídos: ${u.concluidos}</p>
+        ${!u.isAdmin ? `<button onclick="tornarAdmin('${u.uid}')">Tornar Admin</button>` : ''}
+        <hr>
+      `;
+
+      container.appendChild(div);
+    });
+
+  } catch (error) {
+    console.error('❌ Erro ao listar usuários:', error);
+    container.innerHTML = 'Erro ao carregar dados.';
+  }
+}
+
+
+function filtrarportempodecasa() {
+  listarTodosUsuarios('tempo');
+}
+
+function filtrarporTodosComOsVideosConcluidos() {
+  listarTodosUsuarios('concluidos');
+}
+
+function filtrarporTodosComOsVideosConcluidosFalse() {
+  listarTodosUsuarios('naoConcluidos');
+}
+
+function tornarAdmin(uid) {
+  db.ref(`users/${uid}`).update({ isAdmin: true }).then(() => {
+    alert('Usuário promovido a admin!');
+    listarTodosUsuarios(); // recarrega a lista
+  });
 }

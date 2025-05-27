@@ -29,6 +29,9 @@ var cargoUser2 = document.getElementById('cargoUser2')
 var responderImgUpdate = document.getElementById('responderImgUpdate')
 var FormPostarVideosPerguntas = document.getElementById('FormPostarVideosPerguntas')
 var popupSucesso = document.getElementById('popupSucesso')
+var popupSemSucesso = document.getElementById('popupSemSucesso')
+var usersList = document.getElementById('usersListCss')
+
 function showItem(element) {
     element.classList.add('transition-item');
   
@@ -211,7 +214,10 @@ function showConcluded(){
     hideItem(sectionVideos)
     hideItem(ShowQuests)
     showItem(sectionConcluded)
+    carregarVideosConcluidos()
     hideItem(FormPostarVideosPerguntas)
+    hideItem(popupSucesso)
+    hideItem(popupSemSucesso)
 }
 
 function showProfile(){
@@ -220,6 +226,8 @@ function showProfile(){
     hideItem(ShowQuests)
     showItem(userProfile)
     hideItem(FormPostarVideosPerguntas)
+    hideItem(popupSucesso)
+    hideItem(popupSemSucesso)
 }
 
 function showVideos(){
@@ -228,6 +236,8 @@ function showVideos(){
     hideItem(ShowQuests)
     showItem(sectionVideos)
     hideItem(FormPostarVideosPerguntas)
+    hideItem(popupSucesso)
+    hideItem(popupSemSucesso)
     carregarVideosFirebase()
 }
 
@@ -237,15 +247,29 @@ function ShowFormPostarVideosPerguntas(){
   hideItem(ShowQuests)
   hideItem(sectionVideos)
   showItem(FormPostarVideosPerguntas)
+  hideItem(popupSucesso)
+  hideItem(popupSemSucesso)
 } 
 function mostrarPopupConcluido() {
   showItem(popupSucesso)
+  hideItem(ShowQuests)
 }
 
 function fecharPopupConcluido() {
   hideItem(popupSucesso)
   showVideos()
 }
+
+function mostrarPopupNaoConcluido() {
+  showItem(popupSemSucesso)
+  hideItem(ShowQuests)
+}
+
+function fecharPopupNaoConcluido() {
+  hideItem(popupSemSucesso)
+  showVideos()
+}
+
 function editProfile(){
 
 
@@ -257,6 +281,14 @@ function showQuests1(){
   hideItem(userProfile)
   hideItem(sectionConcluded)
   showItem(ShowQuests)
+}
+
+function ShowusersList(){
+  hideItem(userProfile)
+  hideItem(sectionVideos)
+  hideItem(sectionConcluded)
+  hideItem(ShowQuests)
+  showItem(usersList)
 }
 
 // cebtralizar e traduzir erros 

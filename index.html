@@ -290,11 +290,22 @@
           </div>
       </div>
       <div id="popupSucesso" class="startHidden">
-        <div idid="popupSucessoCss">
+        <div >
         <div class="popup-content">
-        <h2>🎉 Parabéns!</h2>
-          <p>Você concluiu esse vídeo com sucesso.</p>
-          <button onclick="fecharPopupConcluido()">Fechar</button>
+        <h2 class="h2Popup">Parabéns!</h2>
+          <p class="pPopup">Você concluiu esse vídeo com sucesso.</p>
+          <img src="img/videoconcluido.png" id="imgVideoconcluido" alt="">
+          <button onclick="fecharPopupConcluido()" class="ButtonStyleBlue">Fechar</button>
+        </div>
+        </div>
+      </div>
+      <div id="popupSemSucesso" class="startHidden">
+        <div>
+        <div class="popup-content">
+        <h2 class="h2Popup">OPS... NÃO FOI DESSA VEZ</h2>
+          <p class="pPopup">RESPOSTA ERRADA. MAS NAO SE PREOCUPE, TENTE MAIS UMA VEZ!</p>
+          <img src="img/naoconcluido.png" id="imgVideoconcluido" alt="">
+          <button onclick="fecharPopupNaoConcluido()" class="ButtonStyleBlue"> TENTAR NOVAMENTE</button>
         </div>
         </div>
       </div>
@@ -302,25 +313,9 @@
       <div id="sectionConcluded" class="startHidden">
           <div id="listConcluded">
             <h1>Vídeos Concluídos</h1>
-              <div id="1" class="allConcludedVideos" onclick="showQuests1()">
-                <iframe src="https://www.canva.com/design/DAGipkCx19U/_ouKWVFWx63Y9IiBT11AGg/watch" frameborder="0"></iframe>
-                <p id="1p">Clientes parceiros</p>
-              </div>
-              <div id="1" class="allConcludedVideos" onclick="showQuests1()">
-                <iframe src="https://www.canva.com/design/DAGipkCx19U/_ouKWVFWx63Y9IiBT11AGg/watch" frameborder="0"></iframe>
-                <p id="1p">Clientes parceiros</p>
-              </div>
-              <div id="1" class="allConcludedVideos" onclick="showQuests1()">
-                <iframe src="https://www.canva.com/design/DAGipkCx19U/_ouKWVFWx63Y9IiBT11AGg/watch" frameborder="0"></iframe>
-                <p id="1p">Clientes parceiros</p>
-              </div>
-              <div id="1" class="allConcludedVideos" onclick="showQuests1()">
-                <iframe src="https://www.canva.com/design/DAGipkCx19U/_ouKWVFWx63Y9IiBT11AGg/watch" frameborder="0"></iframe>
-                <p id="1p">Clientes parceiros</p>
-              </div>
-              <div id="1" class="allConcludedVideos" >
-                <iframe src="https://www.canva.com/design/DAGipkCx19U/_ouKWVFWx63Y9IiBT11AGg/watch" frameborder="0"></iframe>
-                <p id="1p">Clientes parceiros</p>
+              <div id="1" class="allConcludedVideos" onclick="showQuests1()"> 
+                <img src="" frameborder="0"></img>      <!-- aqui fica o a capa do video  -->
+                <p id="1p">Clientes parceiros</p>      <!-- aqui fica o nome do video  -->
               </div>
           </div>
       </div>
@@ -357,6 +352,7 @@
             <p id="admissaoUser2"></p>
           </div>
           <button CLASS="ButtonStyleBlue" onclick="signOut()">logout</button>
+          <button class="ButtonStyleBlue" onclick="ShowusersList()"> mostrar lista de usuarios</button>
           <button class="ButtonStyleBlue" onclick="ShowFormPostarVideosPerguntas()">Postar novo video e perguntas</button>
         </div>
       </div>
@@ -370,6 +366,9 @@
           <input type="file" name="file" id="file" accept="image/*" required />
           <img id="previewImage" style="display: none;" />
           
+          <label for="nomeVideo">Pergunta</label>
+          <input type="text" name="nomeVideo" id="nomeVideo" required />
+
           <label for="pergunta">Pergunta</label>
           <input type="text" name="pergunta" id="pergunta" required />
 
@@ -400,9 +399,26 @@
             </label>
           </fieldset>
         
+          
           <button type="submit" class="ButtonStyleBlue" >Adicionar Vídeo</button>
         </form>
       </div>
+      <!-- section mostra users -->
+       <section id="usersListCss" class="startHidden">
+<div id="usersListCss">
+  <div>
+    <button class="ButtonStyleBlue" onclick="listarTodosUsuarios('tempo')">filtrar por tempo de casa</button>
+    <button class="ButtonStyleBlue" onclick="listarTodosUsuarios('concluidos')">todos que concluiram os videos</button>
+    <button class="ButtonStyleBlue" onclick="listarTodosUsuarios('naoConcluidos')">todos que nao concluiram os videos</button>
+  </div>
+
+  <div id="usersContainer">
+    <p>🔍 Nenhum usuário carregado ainda...</p>
+  </div>
+</div>
+
+       </section>
+      <!-- fim da section mostra users -->  
 
       <!-- section controls -->
       <div id="containerMenuControls">
