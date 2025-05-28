@@ -174,9 +174,9 @@ const btnCertificado = document.createElement('button');
 btnCertificado.textContent = 'Imprimir Certificado';
 btnCertificado.onclick = imprimirCertificado;
 btnCertificado.id = 'btnImprimirCertificado';
-btnCertificado.classList.add('ButtonStyleBlue');
+btnCertificado.classList.add('ButtonStyleMinimalistCertificado');
 
-// 🔹 PASSO 2: Container do certificado (inicialmente oculto)
+
 const certificadoContainer = document.createElement('div');
 certificadoContainer.id = 'certificadoContainer';
 certificadoContainer.classList.add('startHidden');
@@ -254,32 +254,56 @@ function imprimirCertificado() {
     refVideos.once('value'),
     db.ref(`users/${uid}/nomeCompleto`).once('value')
   ])
-    .then(([concluidosSnap, videosSnap, nomeSnap]) => {
-      const concluidos = concluidosSnap.val() || {};
-      const todosVideosConcluded = Object.keys(concluidos).length;
-      const allVideos = videosSnap.numChildren();
+.then(([concluidosSnap, videosSnap, nomeSnap]) => {
+  const concluidos = concluidosSnap.val() || {};
+  const todosVideosConcluded = Object.keys(concluidos).length;
+  const allVideos = videosSnap.numChildren();
 
-      if (todosVideosConcluded >= allVideos && allVideos > 0) {
-        const nome = nomeSnap.val() || 'Usuário';
+  if (todosVideosConcluded >= allVideos && allVideos > 0) {
+    const nome = nomeSnap.val() || 'Usuário';
 
-        // Gera o certificado em HTML
-        const certificadoHTML = `
-          <h1>Certificado de Conclusão</h1>
-          <p>Certificamos que <strong>${nome}</strong> concluiu com êxito todos os vídeos da Integração Corporativa.</p>
-          <p><em>${new Date().toLocaleDateString()}</em></p>
-        `;
+    const certificadoHTML = `
+      <div class="certificado">
+        <div class="certificado-topo"></div>
+        <div class="certificado-conteudo">
+          <h1 class="titulo">Certificado</h1>
+          <p class="nome">${nome}</p>
+          <p class="texto">
+            participou e concluiu o Processo de Integração Online, com carga horária total de ${allVideos * 5}m, 
+            realizado com sucesso por meio da nossa plataforma online.
+          </p>
+          <div class="assinatura">
+            
+            <p class="instrutora">Setor de RH<br>Douglas Pires <span>Responsável pela Integração</span></p>
+          </div>
+          <div class="logo-vertical">Integração Megatech</div>
+        </div>
+      </div>
+    `;
 
-        document.getElementById('certificadoContent').innerHTML = certificadoHTML;
-        document.getElementById('certificadoContainer').classList.remove('startHidden');
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+    certificadoContentUser.innerHTML = certificadoHTML;
+    showCertificadoUser(certificadoContentUser)
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 
-      } else {
-        document.getElementById('responderCertificado').innerText = 'Você ainda não concluiu todos os vídeos.';
-      }
-    })
-    .catch(error => {
-      console.error('Erro ao verificar certificado:', error);
-    });
+    // Criar botão de imprimir
+const btnPrint = document.createElement('button');
+btnPrint.textContent = 'Salvar / Imprimir Certificado';
+btnPrint.classList.add('ButtonStyleMinimalist');
+btnPrint.onclick = () => window.print();
+
+const instrutora = document.getElementsByClassName('instrutora')[0];
+if (instrutora) {
+  instrutora.appendChild(btnPrint);
+}
+
+  } else {
+    document.getElementById('responderCertificado').innerText = 'Você ainda não concluiu todos os vídeos.';
+  }
+})
+.catch(error => {
+  console.error('Erro ao verificar certificado:', error);
+});
+
 }
 
 
@@ -404,16 +428,18 @@ async function listarTodosUsuarios(filtro = null) {
       const uid = userSnap.key;
       const concluidos = user.videosConcluded ? Object.keys(user.videosConcluded).length : 0;
 
-      const dadosUsuario = {
-        uid,
-        nome: user.nomeCompleto || 'Sem nome',
-        admissao: user.admissao || '',
-        isAdmin: user.isAdmin || false,
-        concluidos,
-        concluiuTudo: concluidos === totalVideos
-      };
+const dadosUsuario = {
+  uid,
+  foto: user.photoURL || 'https://www.w3schools.com/howto/img_avatar.png',
+  nome: user.nomeCompleto || 'Sem nome',
+  admissao: user.admissao || '',
+  cargo: user.cargo,
+  isAdmin: user.isAdmin || false,
+  concluidos,
+  concluiuTudo: concluidos === totalVideos
+};
 
-      console.log('👤 Usuário:', dadosUsuario);
+
       usuarios.push(dadosUsuario);
     });
 
@@ -422,13 +448,13 @@ async function listarTodosUsuarios(filtro = null) {
     if (filtro === 'tempo') {
       filtrados = usuarios.filter(u => u.admissao)
         .sort((a, b) => new Date(a.admissao) - new Date(b.admissao));
-      console.log('📅 Filtro por tempo de casa aplicado.');
+
     } else if (filtro === 'concluidos') {
       filtrados = usuarios.filter(u => u.concluiuTudo);
-      console.log('✅ Filtro: somente quem concluiu todos os vídeos.');
+
     } else if (filtro === 'naoConcluidos') {
       filtrados = usuarios.filter(u => !u.concluiuTudo);
-      console.log('❌ Filtro: usuários que ainda não concluíram.');
+
     }
 
     console.log('🎯 Usuários após filtro:', filtrados.length);
@@ -444,13 +470,17 @@ async function listarTodosUsuarios(filtro = null) {
       div.className = 'userCard';
 
       div.innerHTML = `
+        <img class="imgsUsers" src="${u.foto}"
         <p><strong>${u.nome}</strong></p>
         <p>Admissão: ${u.admissao}</p>
-        <p>Status: ${u.isAdmin ? '👑 Admin' : 'Usuário comum'}</p>
+        <p>Cargo: ${u.cargo}</p>
+        <p>Status: ${u.isAdmin ? 'Admin' : 'Usuário comum'}</p>
         <p>Vídeos concluídos: ${u.concluidos}</p>
-        ${!u.isAdmin ? `<button onclick="tornarAdmin('${u.uid}')">Tornar Admin</button>` : ''}
+        ${u.isAdmin ? `<button onclick="removerAdmin('${u.uid} ')" class="ButtonStyleMinimalist" >remover admin</button>` : ''}
+        ${!u.isAdmin ? `<button onclick="tornarAdmin('${u.uid}')" class="ButtonStyleMinimalist" >Tornar Admin</button>` : ''}
         <hr>
       `;
+
 
       container.appendChild(div);
     });
@@ -475,8 +505,17 @@ function filtrarporTodosComOsVideosConcluidosFalse() {
 }
 
 function tornarAdmin(uid) {
+  const db = firebase.database();
   db.ref(`users/${uid}`).update({ isAdmin: true }).then(() => {
     alert('Usuário promovido a admin!');
+    listarTodosUsuarios(); // recarrega a lista
+  });
+}
+
+function removerAdmin(uid) {
+  const db = firebase.database();
+  db.ref(`users/${uid}`).update({ isAdmin: false }).then(() => {
+    alert('Usuário não é mais admin');
     listarTodosUsuarios(); // recarrega a lista
   });
 }

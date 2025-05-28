@@ -31,7 +31,9 @@ var FormPostarVideosPerguntas = document.getElementById('FormPostarVideosPergunt
 var popupSucesso = document.getElementById('popupSucesso')
 var popupSemSucesso = document.getElementById('popupSemSucesso')
 var usersList = document.getElementById('usersListCss')
-
+var buttonShowPostarVideos = document.getElementById('buttonShowPostarVideos')
+var buttonShowUsers = document.getElementById('buttonShowUsers')
+var certificadoContentUser = document.getElementById('certificadoContentUser')
 function showItem(element) {
     element.classList.add('transition-item');
   
@@ -167,6 +169,13 @@ function showUserContent(user) {
                     turnoUser2.innerHTML = usersData[userId].turno || 'Não informado';
                     admissaoUser2.innerHTML = usersData[userId].admissao || 'Não informado';
                     cargoUser2.innerHTML = usersData[userId].cargo || 'Não informado';
+
+                   if (!usersData[userId].isAdmin) {
+                    return;
+                    } else {
+                      showItem2(buttonShowUsers)
+                      showItem2(buttonShowPostarVideos)
+                    }
                     // console.log(cargoUser2)
                   }
                 }else{
@@ -218,6 +227,8 @@ function showConcluded(){
     hideItem(FormPostarVideosPerguntas)
     hideItem(popupSucesso)
     hideItem(popupSemSucesso)
+    hideItem(usersList)
+    hideItem(certificadoContentUser)
 }
 
 function showProfile(){
@@ -228,6 +239,8 @@ function showProfile(){
     hideItem(FormPostarVideosPerguntas)
     hideItem(popupSucesso)
     hideItem(popupSemSucesso)
+    hideItem(usersList)
+    hideItem(certificadoContentUser)
 }
 
 function showVideos(){
@@ -238,6 +251,8 @@ function showVideos(){
     hideItem(FormPostarVideosPerguntas)
     hideItem(popupSucesso)
     hideItem(popupSemSucesso)
+    hideItem(usersList)
+    hideItem(certificadoContentUser)
     carregarVideosFirebase()
 }
 
@@ -249,7 +264,15 @@ function ShowFormPostarVideosPerguntas(){
   showItem(FormPostarVideosPerguntas)
   hideItem(popupSucesso)
   hideItem(popupSemSucesso)
+  hideItem(usersList)
+  hideItem(certificadoContentUser)
 } 
+
+function showCertificadoUser(){
+  showItem(certificadoContentUser)
+  hideItem(sectionVideos)
+}
+
 function mostrarPopupConcluido() {
   showItem(popupSucesso)
   hideItem(ShowQuests)
@@ -289,6 +312,7 @@ function ShowusersList(){
   hideItem(sectionConcluded)
   hideItem(ShowQuests)
   showItem(usersList)
+  filtrarportempodecasa()
 }
 
 // cebtralizar e traduzir erros 

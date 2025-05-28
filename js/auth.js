@@ -66,6 +66,26 @@ firebase.auth().onAuthStateChanged(function(user){
         hideItem2(step2)
         showUserContent(user)
         hideItem2(loading)
+        
+              const dbRef = firebase.database().ref('users/' + user.uid);
+
+    dbRef.once('value').then(snapshot => {
+      const dados = snapshot.val() || {};
+
+      const atualizacoes = {};
+      if (!dados.photoURL && user.photoURL) {
+        atualizacoes.photoURL = user.photoURL;
+      }
+      if (!dados.nomeCompleto && user.displayName) {
+        atualizacoes.nomeCompleto = user.displayName;
+      }
+
+      if (Object.keys(atualizacoes).length > 0) {
+        dbRef.update(atualizacoes).then(() => {
+          console.log('✅ Dados sincronizados com o login');
+        });
+      }
+    });
     }else{
         hideItem2(loading)
         console.log("nao logou")
@@ -136,11 +156,11 @@ const uploadPercent = document.getElementById('uploadPercent');
 
 profilePhotoForm.addEventListener('submit', function(event) {
     event.preventDefault();
-    
+
     const file = profilePhotoInput.files[0];
     if (!file) {
         responderImgUpdate.innerHTML = 'POR FAVOR, SELECIONE UMA IMAGEM';
-        responderImgUpdate.style.color = 'red'
+        responderImgUpdate.style.color = 'red';
         return;
     }
 
@@ -149,7 +169,6 @@ profilePhotoForm.addEventListener('submit', function(event) {
     const photoRef = storageRef.child(`profilePhotos/${user.uid}/${file.name}`);
     const uploadTask = photoRef.put(file);
 
-    // Mostrar barra de progresso
     uploadProgress.style.display = 'block';
     uploadPercent.style.display = 'inline';
 
@@ -168,20 +187,25 @@ profilePhotoForm.addEventListener('submit', function(event) {
         },
         function() {
             uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
-              
+                // Atualiza no Auth
                 return user.updateProfile({
                     photoURL: downloadURL
+                }).then(() => {
+                    // Também salva no Realtime Database
+                    const dbRefUsers = firebase.database().ref('users');
+                    return dbRefUsers.child(user.uid).update({
+                        photoURL: downloadURL
+                    });
+                }).then(() => {
+                    alert('Foto de perfil atualizada com sucesso!');
+                    uploadProgress.style.display = 'none';
+                    uploadPercent.style.display = 'none';
+                    hideItem(updatePhoto);
+                    hideItem2(loading);
+                    showItem(UserContent);
                 });
-            }).then(function() {
-                alert('Foto de perfil atualizada com sucesso!');
-                uploadProgress.style.display = 'none';
-                uploadPercent.style.display = 'none';
-                hideItem(updatePhoto);
-                hideItem2(loading)
-                showItem(UserContent)
             }).catch(function(error) {
-                console.error(error);
-                // alert('Erro ao atualizar o perfil.');
+                console.error('Erro ao atualizar perfil e database:', error);
             });
         }
     );

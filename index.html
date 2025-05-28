@@ -289,6 +289,7 @@
           </div>
           </div>
       </div>
+      <div id="certificadoContentUser"></div>
       <div id="popupSucesso" class="startHidden">
         <div >
         <div class="popup-content">
@@ -352,8 +353,8 @@
             <p id="admissaoUser2"></p>
           </div>
           <button CLASS="ButtonStyleBlue" onclick="signOut()">logout</button>
-          <button class="ButtonStyleBlue" onclick="ShowusersList()"> mostrar lista de usuarios</button>
-          <button class="ButtonStyleBlue" onclick="ShowFormPostarVideosPerguntas()">Postar novo video e perguntas</button>
+          <button class="ButtonStyleMinimalist startHidden" id="buttonShowUsers" onclick="ShowusersList()"> mostrar lista de usuarios</button>
+          <button class="ButtonStyleMinimalist startHidden" id="buttonShowPostarVideos" onclick="ShowFormPostarVideosPerguntas()">Postar novo video e perguntas</button>
         </div>
       </div>
       
@@ -405,11 +406,11 @@
       </div>
       <!-- section mostra users -->
        <section id="usersListCss" class="startHidden">
-<div id="usersListCss">
-  <div>
-    <button class="ButtonStyleBlue" onclick="listarTodosUsuarios('tempo')">filtrar por tempo de casa</button>
-    <button class="ButtonStyleBlue" onclick="listarTodosUsuarios('concluidos')">todos que concluiram os videos</button>
-    <button class="ButtonStyleBlue" onclick="listarTodosUsuarios('naoConcluidos')">todos que nao concluiram os videos</button>
+<div id="usersListCssb">
+  <div id="filtersforShowUsers">
+    <button class="ButtonStyleMinimalist" onclick="listarTodosUsuarios('tempo')">filtrar por tempo de casa</button>
+    <button class="ButtonStyleMinimalist" onclick="listarTodosUsuarios('concluidos')">todos que concluiram os videos</button>
+    <button class="ButtonStyleMinimalist" onclick="listarTodosUsuarios('naoConcluidos')">todos que nao concluiram os videos</button>
   </div>
 
   <div id="usersContainer">
