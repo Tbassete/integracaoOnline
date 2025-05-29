@@ -238,10 +238,7 @@ function verificarResposta(videoId, respostaCorreta) {
 
 function imprimirCertificado() {
   const user = firebase.auth().currentUser;
-  if (!user) {
-    alert('Usuário não autenticado.');
-    return;
-  }
+
 
   const uid = user.uid;
   const db = firebase.database();
@@ -297,7 +294,7 @@ if (instrutora) {
 }
 
   } else {
-    document.getElementById('responderCertificado').innerText = 'Você ainda não concluiu todos os vídeos.';
+    document.getElementById('btnImprimirCertificado').innerText = 'Você ainda não concluiu todos os vídeos.';
   }
 })
 .catch(error => {
@@ -380,7 +377,7 @@ function carregarVideosConcluidos() {
 
           // Nome do vídeo
           const p = document.createElement('p');
-          p.textContent = video.name || 'Vídeo Concluído';
+          p.textContent = video.nomeVideo || 'Vídeo Concluído';
 
           // Adiciona elementos à div
           videoDiv.appendChild(img);
@@ -436,7 +433,7 @@ const dadosUsuario = {
   cargo: user.cargo,
   isAdmin: user.isAdmin || false,
   concluidos,
-  concluiuTudo: concluidos === totalVideos
+  concluiuTudo: concluidos >= totalVideos
 };
 
 
@@ -465,32 +462,103 @@ const dadosUsuario = {
       return;
     }
 
-    filtrados.forEach(u => {
-      const div = document.createElement('div');
-      div.className = 'userCard';
+filtrados.forEach(u => {
+  const div = document.createElement('div');
+  div.className = 'userCard';
 
-      div.innerHTML = `
-        <img class="imgsUsers" src="${u.foto}"
-        <p><strong>${u.nome}</strong></p>
-        <p>Admissão: ${u.admissao}</p>
-        <p>Cargo: ${u.cargo}</p>
-        <p>Status: ${u.isAdmin ? 'Admin' : 'Usuário comum'}</p>
-        <p>Vídeos concluídos: ${u.concluidos}</p>
-        ${u.isAdmin ? `<button onclick="removerAdmin('${u.uid} ')" class="ButtonStyleMinimalist" >remover admin</button>` : ''}
-        ${!u.isAdmin ? `<button onclick="tornarAdmin('${u.uid}')" class="ButtonStyleMinimalist" >Tornar Admin</button>` : ''}
-        <hr>
-      `;
+  div.innerHTML = `
+    <img class="imgsUsers" src="${u.foto}">
+    <p><strong>${u.nome}</strong></p>
+    <p>Admissão: ${u.admissao}</p>
+    <p>Cargo: ${u.cargo}</p>
+    <p>Status: ${u.isAdmin ? 'Admin' : 'Usuário comum'}</p>
+    <p>Vídeos concluídos: ${u.concluidos}</p>
+    <hr>
+  `;
 
+  // Botão: Imprimir certificado
+  if (u.concluiuTudo) {
+    const btnCertificado = document.createElement('button');
+    btnCertificado.textContent = 'Imprimir Certificado';
+    btnCertificado.className = 'ButtonStyleMinimalist';
+    btnCertificado.addEventListener('click', () => imprimirCertificadoUsers(u));
+    div.appendChild(btnCertificado);
+  }
 
-      container.appendChild(div);
-    });
+  // Botão: Remover admin
+  if (u.isAdmin) {
+    const btnRemoverAdmin = document.createElement('button');
+    btnRemoverAdmin.textContent = 'Remover Admin';
+    btnRemoverAdmin.className = 'ButtonStyleMinimalist';
+    btnRemoverAdmin.addEventListener('click', () => removerAdmin(u.uid));
+    div.appendChild(btnRemoverAdmin);
+  }
 
+  // Botão: Tornar admin
+  if (!u.isAdmin) {
+    const btnTornarAdmin = document.createElement('button');
+    btnTornarAdmin.textContent = 'Tornar Admin';
+    btnTornarAdmin.className = 'ButtonStyleMinimalist';
+    btnTornarAdmin.addEventListener('click', () => tornarAdmin(u.uid));
+    div.appendChild(btnTornarAdmin);
+  }
+
+  container.appendChild(div);
+});
   } catch (error) {
     console.error('❌ Erro ao listar usuários:', error);
     container.innerHTML = 'Erro ao carregar dados.';
   }
 }
 
+function imprimirCertificadoUsers(uuid) {
+ 
+ 
+
+  const certificadoHTML = `
+    <div class="certificado">
+      <div class="certificado-topo"></div>
+      <div class="certificado-conteudo">
+        <h1 class="titulo">Certificado</h1>
+        <p class="nome">${uuid.nome}</p>
+        <p class="texto">
+          participou e concluiu o Processo de Integração Online, com carga horária total de ${uuid.concluidos * 5}m, 
+          realizado com sucesso por meio da nossa plataforma online.
+        </p>
+        <div class="assinatura">
+          <p class="instrutora">Setor de RH<br>Douglas Pires <span>Responsável pela Integração</span></p>
+        </div>
+        <div class="logo-vertical">Integração Megatech</div>
+      </div>
+    </div>
+  `;
+
+  certificadoContentUser.innerHTML = certificadoHTML;
+
+  // Criar botão de imprimir
+  const btnPrint = document.createElement('button');
+  btnPrint.textContent = 'Salvar / Imprimir Certificado';
+  btnPrint.classList.add('ButtonStyleMinimalist');
+  btnPrint.onclick = () => window.print();
+
+    // Criar botão de fechar o cerificado
+
+  const btnCloseCert = document.createElement('button');
+  btnCloseCert.textContent = 'fechar certificado';
+  btnCloseCert.classList.add('ButtonStyleMinimalist');
+  btnCloseCert.onclick = () => CloseCert();
+      function CloseCert(){
+      hideItem(certificadoContentUser)
+      showItem(usersList)
+    }
+
+  // Adiciona o botão ao DOM
+  certificadoContentUser.appendChild(btnCloseCert)
+  certificadoContentUser.appendChild(btnPrint);
+  showItem(certificadoContentUser);
+  hideItem(usersList)
+
+}
 
 function filtrarportempodecasa() {
   listarTodosUsuarios('tempo');

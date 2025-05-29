@@ -367,7 +367,7 @@
           <input type="file" name="file" id="file" accept="image/*" required />
           <img id="previewImage" style="display: none;" />
           
-          <label for="nomeVideo">Pergunta</label>
+          <label for="nomeVideo">Nome do vídeo</label>
           <input type="text" name="nomeVideo" id="nomeVideo" required />
 
           <label for="pergunta">Pergunta</label>
@@ -466,7 +466,7 @@
       const list = document.getElementById('listVideos');
       const videos = document.querySelectorAll('.allVideos');
     
-      list.addEventListener('scroll', () => {
+list.addEventListener('scroll', () => {
   const listRect = list.getBoundingClientRect();
   const centerY = listRect.top + list.clientHeight / 2;
 
@@ -476,22 +476,24 @@
     const distance = Math.abs(videoCenter - centerY);
     const maxDistance = list.clientHeight / 2;
 
-    // Normaliza distância (0 no centro, 1 nas bordas)
     const norm = Math.min(distance / maxDistance, 1);
 
-    // Escala varia entre 0.8 e 1.2
     const scale = 1.0 - norm * 1.0;
-
-    // Grayscale entre 5% e 100%
     const gray = 5 + norm * 100;
 
     video.style.transform = `scale(${scale})`;
     video.style.filter = `grayscale(${gray}%)`;
   });
 });
-    
-      // Rodar uma vez no início
-      list.dispatchEvent(new Event('scroll'));
+
+// Rodar uma vez no início forçando movimento real
+list.dispatchEvent(new Event('scroll'));
+setTimeout(() => {
+  list.scrollTop += 10;
+  setTimeout(() => {
+    list.scrollTop -= 10;
+  }, 50);
+}, 50);
     </script>
   </body>
 </html>

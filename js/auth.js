@@ -238,21 +238,22 @@ function updateProfile() {
   user.updateProfile({
     displayName: nome
   })
-  .then(() => {
-    // Atualiza informações adicionais no Realtime Database com nome em letra maiúscula
-    var database = firebase.database();
-    var dbRefUsers = database.ref('users');
-    var dataUpdated = true
-    return dbRefUsers.child(user.uid).set({
-      cargo: cargo.toUpperCase(),
-      turno: turno.toUpperCase(),
-      area: area.toUpperCase(),
-      admissao: admissao,
-      nomeCompleto: nome,
-      nomeCompletoUpperCase:nome.toUpperCase(),
-      dataUpdated: dataUpdated,
-    });
-  })
+.then(() => {
+  // Atualiza apenas os campos selecionados no Realtime Database
+  var database = firebase.database();
+  var dbRefUsers = database.ref('users');
+  var dataUpdated = true;
+  
+  return dbRefUsers.child(user.uid).update({
+    cargo: cargo.toUpperCase(),
+    turno: turno.toUpperCase(),
+    area: area.toUpperCase(),
+    admissao: admissao,
+    nomeCompleto: nome,
+    nomeCompletoUpperCase: nome.toUpperCase(),
+    dataUpdated: dataUpdated,
+  });
+})
   .then(() => {
       console.log("Perfil e dados atualizados com sucesso!");
       showUserContent(user); // avança para a próxima etapa
