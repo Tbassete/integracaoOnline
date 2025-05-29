@@ -249,7 +249,7 @@ function imprimirCertificado() {
   Promise.all([
     refConcluidos.once('value'),
     refVideos.once('value'),
-    db.ref(`users/${uid}/nomeCompleto`).once('value')
+    db.ref(`users/${uid}`).once('value')
   ])
 .then(([concluidosSnap, videosSnap, nomeSnap]) => {
   const concluidos = concluidosSnap.val() || {};
@@ -257,26 +257,34 @@ function imprimirCertificado() {
   const allVideos = videosSnap.numChildren();
 
   if (todosVideosConcluded >= allVideos && allVideos > 0) {
-    const nome = nomeSnap.val() || 'Usuário';
+    const usercert = nomeSnap.val() || 'Usuário';
+    let listaVideosHTML = '<ul>';
+videosSnap.forEach(videoSnap => {
+  const videoKey = videoSnap.key;
+  const videoData = videoSnap.val();
 
-    const certificadoHTML = `
-      <div class="certificado">
-        <div class="certificado-topo"></div>
-        <div class="certificado-conteudo">
-          <h1 class="titulo">Certificado</h1>
-          <p class="nome">${nome}</p>
-          <p class="texto">
-            participou e concluiu o Processo de Integração Online, com carga horária total de ${allVideos * 5}m, 
-            realizado com sucesso por meio da nossa plataforma online.
-          </p>
-          <div class="assinatura">
-            
-            <p class="instrutora">Setor de RH<br>Douglas Pires <span>Responsável pela Integração</span></p>
-          </div>
-          <div class="logo-vertical">Integração Megatech</div>
-        </div>
+  if (concluidos[videoKey]) {
+    listaVideosHTML += `<li>${videoData.nomeVideo}</li>`; // Assumindo que `nome` é o campo do título do vídeo
+  }
+});
+const certificadoHTML = `
+  <div class="certificado">
+    <div class="certificado-topo"></div>
+    <div class="certificado-conteudo">
+      <h1 class="titulo">Certificado de conclusão</h1>
+      <p class="nome">${usercert.nomeCompleto}</p>
+      <p class="texto">
+        participou e concluiu o Processo de Integração Online,  
+        realizado com sucesso por meio da nossa plataforma online, em ${usercert.dataConclusaoUltimoVideo}
+      </p>
+      <p class="texto"><strong>Treinamentos realizados:</strong>${listaVideosHTML}</p>
+      <div class="assinatura">
+        <img class="logo-vertical" src="img/sapamega.png">
+        <p class="instrutora">Setor de Recursos Humanos<br> <span>Sapa-Megatech do Brasil</span></p>
       </div>
-    `;
+    </div>
+  </div>
+`;
 
     certificadoContentUser.innerHTML = certificadoHTML;
     showCertificadoUser(certificadoContentUser)
@@ -292,6 +300,13 @@ const instrutora = document.getElementsByClassName('instrutora')[0];
 if (instrutora) {
   instrutora.appendChild(btnPrint);
 }
+
+const agora = new Date();
+const dataFormatada = agora.toLocaleDateString('pt-BR');
+
+return dbRefUsers.child(user.uid).update({
+  dataConclusaoUltimoVideo: dataFormatada
+});
 
   } else {
     document.getElementById('btnImprimirCertificado').innerText = 'Você ainda não concluiu todos os vídeos.';
@@ -413,9 +428,6 @@ async function listarTodosUsuarios(filtro = null) {
       videosRef.once('value')
     ]);
 
-    console.log('✅ Dados carregados.');
-    console.log('📦 Usuários encontrados:', usersSnap.numChildren());
-    console.log('📦 Vídeos disponíveis:', videosSnap.numChildren());
 
     const totalVideos = videosSnap.numChildren();
     const usuarios = [];
@@ -432,6 +444,7 @@ const dadosUsuario = {
   admissao: user.admissao || '',
   cargo: user.cargo,
   isAdmin: user.isAdmin || false,
+  dataConclusaoUltimoVideo: user.dataConclusaoUltimoVideo || 'sem data',
   concluidos,
   concluiuTudo: concluidos >= totalVideos
 };
@@ -512,53 +525,81 @@ filtrados.forEach(u => {
 }
 
 function imprimirCertificadoUsers(uuid) {
- 
- 
+  const db = firebase.database();
 
-  const certificadoHTML = `
-    <div class="certificado">
-      <div class="certificado-topo"></div>
-      <div class="certificado-conteudo">
-        <h1 class="titulo">Certificado</h1>
-        <p class="nome">${uuid.nome}</p>
-        <p class="texto">
-          participou e concluiu o Processo de Integração Online, com carga horária total de ${uuid.concluidos * 5}m, 
-          realizado com sucesso por meio da nossa plataforma online.
-        </p>
-        <div class="assinatura">
-          <p class="instrutora">Setor de RH<br>Douglas Pires <span>Responsável pela Integração</span></p>
+  const refConcluidos = db.ref(`users/${uuid.uid}/videosConcluded`);
+  const refVideos = db.ref('videos');
+
+  Promise.all([
+    refConcluidos.once('value'),
+    refVideos.once('value')
+  ])
+  .then(([concluidosSnap, videosSnap]) => {
+    const concluidos = concluidosSnap.val() || {};
+
+    let listaVideosHTML = '<ul>';
+    videosSnap.forEach(videoSnap => {
+      const videoKey = videoSnap.key;
+      const videoData = videoSnap.val();
+
+      if (concluidos[videoKey]) {
+        listaVideosHTML += `<li>${videoData.nomeVideo}</li>`;
+      }
+    });
+    listaVideosHTML += '</ul>';
+
+    const certificadoHTML = `
+      <div class="certificado">
+        <div class="certificado-topo"></div>
+        <div class="certificado-conteudo">
+          <br>
+          <br>
+          <br>
+          <br>
+          <h1 class="titulo">Certificado de conclusão</h1>
+          <p class="nome">${uuid.nome}</p>
+          <p class="texto">
+            concluiu o Processo de Integração Online,  
+            realizado com sucesso por meio da nossa plataforma online, em ${uuid.dataConclusaoUltimoVideo}
+          </p>
+          <p class="texto"><strong>Treinamentos realizados:</strong>${listaVideosHTML}</p>
+          <div class="assinatura">
+            <img class="logo-vertical" src="img/sapamega.png">
+            <p class="instrutora">Recursos Humanos<br> <span>Sapa-Megatech do Brasil</span></p>
+
+          </div>
         </div>
-        <div class="logo-vertical">Integração Megatech</div>
       </div>
-    </div>
-  `;
+    `;
 
-  certificadoContentUser.innerHTML = certificadoHTML;
+    certificadoContentUser.innerHTML = certificadoHTML;
 
-  // Criar botão de imprimir
-  const btnPrint = document.createElement('button');
-  btnPrint.textContent = 'Salvar / Imprimir Certificado';
-  btnPrint.classList.add('ButtonStyleMinimalist');
-  btnPrint.onclick = () => window.print();
+    // Botão imprimir
+    const btnPrint = document.createElement('button');
+    btnPrint.textContent = 'Salvar / Imprimir Certificado';
+    btnPrint.classList.add('ButtonStyleMinimalist');
+    btnPrint.onclick = () => window.print();
 
-    // Criar botão de fechar o cerificado
+    // Botão fechar
+    const btnCloseCert = document.createElement('button');
+    btnCloseCert.textContent = 'Fechar Certificado';
+    btnCloseCert.classList.add('ButtonStyleMinimalist');
+    btnCloseCert.onclick = () => {
+      hideItem(certificadoContentUser);
+      showItem(usersList);
+    };
 
-  const btnCloseCert = document.createElement('button');
-  btnCloseCert.textContent = 'fechar certificado';
-  btnCloseCert.classList.add('ButtonStyleMinimalist');
-  btnCloseCert.onclick = () => CloseCert();
-      function CloseCert(){
-      hideItem(certificadoContentUser)
-      showItem(usersList)
-    }
+    certificadoContentUser.appendChild(btnCloseCert);
+    certificadoContentUser.appendChild(btnPrint);
 
-  // Adiciona o botão ao DOM
-  certificadoContentUser.appendChild(btnCloseCert)
-  certificadoContentUser.appendChild(btnPrint);
-  showItem(certificadoContentUser);
-  hideItem(usersList)
-
+    showItem(certificadoContentUser);
+    hideItem(usersList);
+  })
+  .catch(error => {
+    console.error('Erro ao carregar dados dos vídeos concluídos:', error);
+  });
 }
+
 
 function filtrarportempodecasa() {
   listarTodosUsuarios('tempo');

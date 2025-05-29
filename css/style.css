@@ -755,7 +755,8 @@ body {
   align-items: center;
   width: 80vw;
   height: 24vh;
-
+  will-change: transform, filter;
+  transition: transform 0.3s ease, filter 0.3s ease;
   border-radius: 34px;
   margin: 10px auto;
   animation: appear linear;
@@ -1112,6 +1113,12 @@ input[type="file"] {
 .certificado-conteudo {
   padding: 3rem;
   text-align: center;
+  & ul{
+    & li{
+      text-align: left;
+      text-decoration: none;
+    }
+  }
 }
 
 .titulo {
@@ -1140,30 +1147,27 @@ input[type="file"] {
 }
 
 .assinatura img {
-  width: 100px;
+  width: 160px;
 }
 
 .instrutora {
   font-weight: 500;
+    font-size: 0.9rem;
   margin-top: 0.5rem;
 }
 
 .instrutora span {
   font-size: 0.9rem;
+  font-weight: 500;
   color: #555;
 }
 
 .logo-vertical {
-  writing-mode: vertical-rl;
-  transform: rotate(180deg);
   position: absolute;
-  right: 20px;
-  top: 40px;
-  color: #002f6c;
-  font-weight: bold;
-  font-size: 0.8rem;
-  border-left: 2px dotted var(--blue-deep);
-  padding-left: 10px;
+  right: 8px;
+  top: 57px;
+  width: 50px;
+  height: auto;
 }
 
 @media print {
@@ -1230,7 +1234,7 @@ display: none;
 /* PROFILE */
 #Profile {
   max-width: 90vw;
-  margin: 10vh auto;
+  margin: 5vh auto;
   padding: 2rem;
   border-radius: 16px;
   border: 2px solid white;
