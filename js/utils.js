@@ -38,7 +38,7 @@ function showItem(element) {
     element.classList.add('transition-item');
   
     element.style.display = 'block';
-    let height = element.scrollHeight + 'px';
+    let height = element.scrollHeight + '%';
   
     requestAnimationFrame(() => {
       element.style.height = '0px';

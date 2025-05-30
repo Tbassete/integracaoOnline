@@ -400,8 +400,13 @@
                 }
               }
               /* profile */
+              #step4{
+                min-height: 100vh;
+              }
                 #Profile {
-    max-width: 60vw;
+                  position: relative;
+    max-width: 40vw;
+    /* height: 20vh; */
     padding: 3rem;
   }
 
