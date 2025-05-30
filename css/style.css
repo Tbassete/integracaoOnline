@@ -739,13 +739,23 @@ body {
 
 #soParaDarVolume{
   margin: 10px auto;
-  width: 90%;
-  max-width: 600px;
+  width: 100px;
+  height: 100px;
   background: white;
   border-radius: 20px;
   animation: appear linear;
-  animation-timeline: view();
-  animation-range: entry 0% cover 60%;
+  /* animation-timeline: view();
+  animation-range: entry 0% cover 60%; */
+}
+
+.containerIframe1 {
+  position: relative;
+  width: 90vw;
+  max-height: 200px;
+  border-radius: 16px;
+  margin-bottom: 2%;
+  overflow: hidden;
+  background-color: #000; /* evita fundo branco antes de carregar */
 }
 
 .allVideos{
@@ -1356,7 +1366,7 @@ margin-top: 30px;
   align-items: center;
   background-color: white;
   border-radius: 34px;
-  width: 55vw;
+  width: fit-content;
   height: 80px;
 }
 

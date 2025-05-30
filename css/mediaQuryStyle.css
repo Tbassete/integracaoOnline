@@ -1,0 +1,693 @@
+@media (min-width: 572px) and (max-width: 1024px) {
+    #step1 div {
+        left: -10%;
+        bottom: -5%;
+      }
+    
+      #step1 div h1 {
+        font-size: 2rem;
+        letter-spacing: 8px;
+      }
+    
+      #step1 button {
+        top: 30%;
+      }
+  
+      #white {
+        position: absolute;
+        width: 500px;
+        height: 500px;
+        border-radius: 50%;
+        filter: blur(20px);
+        background-color: white;
+        top: 45%;
+        left: 15%;
+        transform: translate(-10%, -10%);
+        animation-delay: 1s;
+        z-index: 0;
+        animation: orbit2 16s ease-in-out infinite;
+      }
+    
+      #white2 {
+        position: absolute;
+        width: 500px;
+        height: 500px;
+        border-radius: 50%;
+        filter: blur(20px);
+        background-color: white;
+        top: 55%;
+        left: 20%;
+        transform: translate(-10%, -10%);
+        animation-delay: 1s;
+        z-index: 0;
+        animation: orbit3 16s ease-in-out infinite;
+      }
+
+      /* step4 */
+      #listVideos h1 {
+        font-size: 2rem;
+        margin-left: 30px;
+      }
+    
+      .allVideos {
+        flex-direction: column;
+        width: 85vw;
+        height: auto;
+      }
+    
+      .imgCapa {
+        max-width: 80vw;
+      }
+            /* botao cert */
+            #soParaDarVolume{
+                margin: 10px auto;
+                width: 200px;
+                height: 200px;
+                background: rgb(255, 255, 255);
+                border-radius: 34px;
+                border: 4px solid var(--blue-deep);
+                /* animation: appear linear; */
+        
+              }
+              .ButtonStyleMinimalistCertificado {
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 99%;
+                height: 99%;
+                background-color: #ffffff;
+                color: var(--blue-deep);
+                /* border: 1px solid var(--blue-deep); */
+                font-size: 2rem;
+              }
+        
+              .containerIframe1 {
+                position: relative;
+                width: 90vw;
+                max-height: 200px;
+                border-radius: 16px;
+                margin-bottom: 2%;
+                overflow: hidden;
+                background-color: #000; /* evita fundo branco antes de carregar */
+              }
+              /* perguntas */
+              #ContainerPerguntas {
+                width: 80vw;
+                padding: 24px;
+              }
+            
+              #ContainerPerguntas label {
+                font-size: 1rem;
+                padding: 12px 16px;
+              }
+            
+              #containerVideosPerguntas {
+                height: auto;
+                padding-top: 4vh;
+              }
+            
+              .containerIframe {
+                width: 80vw;
+                padding-top: 40%; /* um pouco menos alto */
+              }
+              /* popup */
+              #popupSucessoCss {
+                width: 80vw;
+              }
+            
+              #imgVideoconcluido {
+                width: 50vw;
+              }
+            
+              .h2Popup {
+                font-size: 2.2rem;
+              }
+            
+              .popup-content {
+                min-height: 70vh;
+                padding: 2rem;
+              }
+            
+              #listConcluded {
+                height: 68vh;
+                & h1 {
+                  font-size: 2rem;
+                  margin-left: 30px;
+                }
+              }
+                            /* listconcluidos */
+                            #listConcluded {
+                                height: 60vh;
+                                & h1 {
+                                  font-size: 2.8rem;
+                                  margin-left: 60px;
+                                }
+                              }
+                            
+                              .allConcludedVideos {
+                                width: 60vw;
+                                height: auto;
+                                flex-direction: row;
+                                padding: 20px;
+                                & img {
+                                  width: 10vw;
+                                  height: auto;
+                                }
+                                & p {
+                                  font-size: 1.3rem;
+                                }
+                              }
+  }
+  
+
+  @media (min-width: 1025px) and ( max-width: 2000px) {
+
+    #step1 div {
+        left: 0;
+        bottom: 0;
+      }
+    
+      #step1 div h1 {
+        font-size: 2.5rem;
+        letter-spacing: 6px;
+      }
+    
+      #step1 button {
+        top: 25%;
+      }
+      #white {
+        position: absolute;
+        width: 800px; /* Aumentei um pouco, mas você pode ajustar */
+        height: 800px;
+        border-radius: 50%;
+        filter: blur(25px);
+        background-color: white;
+        top: 20%;
+        left: 14%;
+        transform: translate(-10%, -10%);
+        animation-delay: 1s;
+        z-index: 0;
+        animation: orbit2 16s ease-in-out infinite;
+      }
+    
+      #white2 {
+        position: absolute;
+        width: 800px;
+        height: 800px;
+        border-radius: 50%;
+        filter: blur(25px);
+        background-color: white;
+        top: 30%;
+        left: 20%;
+        transform: translate(-10%, -10%);
+        animation-delay: 1s;
+        z-index: 0;
+        animation: orbit3 16s ease-in-out infinite;
+      }
+
+      /* step 2 */
+
+      #step2 {
+        margin-top: -30px;
+        padding: 20px 0;
+        overflow-x: hidden;
+      }
+    
+      #step2 #authFormDiv,
+      #AuthFormNewUser {
+        max-width: 500px;
+        height: auto;
+      }
+    
+      #step2 #authFormDiv h1,
+      #AuthFormNewUser h1 {
+        font-size: 1.5rem;
+        letter-spacing: 3px;
+      }
+    
+      #step2 #authFormDiv form Input,
+      #AuthFormNewUser form Input {
+        width: 100%;
+        height: 50px;
+        font-size: 1rem;
+      }
+    
+      #step2 #ResponderAuth,
+      #AuthFormNewUser #ResponderAuthNewUser {
+        width: 100%;
+        font-size: 0.9rem;
+      }
+    
+      #createWithOthers {
+        max-width: 500px;
+        flex-direction: row;
+      }
+    
+      #createWithOthers p,
+      #createWithOthers div {
+        width: auto;
+      }
+    
+      #createWithOthers div img {
+        width: 40px;
+      }
+    
+      #step2 #loginWithOthers {
+        justify-content: center;
+      }
+    
+      #step2 #loginWithOthers p {
+        font-size: 1rem;
+      }
+    
+      #step2 #loginWithOthers img {
+        max-width: 40px;
+      }
+    
+      #step2 #imgsAuthForms {
+        height: 250px;
+      }
+    
+      #step2 #imgsAuthForms #container1 img {
+        width: 120px;
+      }
+    
+      #step2 #imgsAuthForms #container1 p {
+        font-size: 1rem;
+      }
+    
+      #containerToggle,
+      #containerToggleNewUser {
+        padding-top: 30px;
+      }
+    
+      #containerToggle p,
+      #containerToggleNewUser p {
+        font-size: 1rem;
+      }
+      /* step4 */
+      #listVideos {
+        padding: 60px 0;
+      }
+    
+      #listVideos h1 {
+        font-size: 2.8rem;
+        margin-left: 40px;
+      }
+    
+      .allVideos {
+        flex-direction: row;
+        width: 70vw;
+        height: 65vh;
+      }
+    
+      .imgCapa {
+        max-width: 60vw;
+      }
+
+      /* botao cert */
+      #soParaDarVolume{
+        margin: 10px auto;
+        width: 300px;
+        height: 300px;
+        background: rgb(255, 255, 255);
+        border-radius: 34px;
+        border: 4px solid var(--blue-deep);
+        /* animation: appear linear; */
+
+      }
+      .ButtonStyleMinimalistCertificado {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 99%;
+        height: 99%;
+        background-color: #ffffff;
+        color: var(--blue-deep);
+        /* border: 1px solid var(--blue-deep); */
+        font-size: 2rem;
+      }
+
+      .containerIframe1 {
+        position: relative;
+        width: 90vw;
+        max-height: 200px;
+        border-radius: 16px;
+        margin-bottom: 2%;
+        overflow: hidden;
+        background-color: #000; /* evita fundo branco antes de carregar */
+      }
+
+      /* perguntas */
+      #ContainerPerguntas {
+        width: 70vw;
+        padding: 32px;
+      }
+    
+      #ContainerPerguntas label {
+        font-size: 1.1rem;
+        padding: 14px 20px;
+      }
+    
+      #containerVideosPerguntas {
+        height: auto;
+        padding-top: 3vh;
+      }
+    
+      .containerIframe {
+        width: 70vw;
+        padding-top: 15%;
+      }
+
+      /* popup */
+      #popupSucessoCss {
+        width: 70vw;
+      }
+    
+      #imgVideoconcluido {
+        width: 25%;
+      }
+    
+      .h2Popup {
+        font-size: 2.5rem;
+      }
+    
+      .popup-content {
+        min-height: 80vh;
+        /* padding: 2.5rem; */
+      }
+    
+              /* listconcluidos */
+              #listConcluded {
+                height: 60vh;
+                & h1 {
+                  font-size: 2.8rem;
+                  margin-left: 60px;
+                }
+              }
+            
+              .allConcludedVideos {
+                width: 60vw;
+                height: auto;
+                flex-direction: row;
+                padding: 20px;
+                & img {
+                  width: 10vw;
+                  height: auto;
+                }
+                & p {
+                  font-size: 1.3rem;
+                }
+              }
+
+  }
+  @media (min-width: 2000px) {
+    #white {
+        position: absolute;
+        width: 1200px; /* Aumentei um pouco, mas você pode ajustar */
+        height: 1200px;
+        border-radius: 50%;
+        filter: blur(25px);
+        background-color: white;
+        top: 20%;
+        left: 14%;
+        transform: translate(-10%, -10%);
+        animation-delay: 1s;
+        z-index: 0;
+        animation: orbit2 16s ease-in-out infinite;
+      }
+    
+      #white2 {
+        position: absolute;
+        width: 1200px;
+        height: 1200px;
+        border-radius: 50%;
+        filter: blur(25px);
+        background-color: white;
+        top: 30%;
+        left: 20%;
+        transform: translate(-10%, -10%);
+        animation-delay: 1s;
+        z-index: 0;
+        animation: orbit3 16s ease-in-out infinite;
+      }
+      /* step2 */
+      #step2 {
+        margin-top: -50px;
+        padding: 40px 0;
+      }
+    
+      #step2 #authFormDiv,
+      #AuthFormNewUser {
+        max-width: 700px;
+        height: auto;
+      }
+    
+      #step2 #authFormDiv h1,
+      #AuthFormNewUser h1 {
+        font-size: 2rem;
+        letter-spacing: 4px;
+      }
+    
+      #step2 #authFormDiv form Input,
+      #AuthFormNewUser form Input {
+        width: 100%;
+        height: 60px;
+        font-size: 1.1rem;
+      }
+    
+      #step2 #ResponderAuth,
+      #AuthFormNewUser #ResponderAuthNewUser {
+        width: 100%;
+        font-size: 1rem;
+      }
+    
+      #createWithOthers {
+        max-width: 700px;
+        flex-direction: row;
+      }
+    
+      #createWithOthers p,
+      #createWithOthers div {
+        width: auto;
+      }
+    
+      #createWithOthers div img {
+        width: 60px;
+      }
+    
+      #step2 #loginWithOthers {
+        justify-content: center;
+      }
+    
+      #step2 #loginWithOthers p {
+        font-size: 1.1rem;
+      }
+    
+      #step2 #loginWithOthers img {
+        max-width: 60px;
+      }
+    
+      #step2 #imgsAuthForms {
+        height: 300px;
+      }
+    
+      #step2 #imgsAuthForms #container1 img {
+        width: 150px;
+      }
+    
+      #step2 #imgsAuthForms #container1 p {
+        font-size: 1.1rem;
+      }
+    
+      #containerToggle,
+      #containerToggleNewUser {
+        padding-top: 40px;
+      }
+    
+      #containerToggle p,
+      #containerToggleNewUser p {
+        font-size: 1.1rem;
+      }
+      /* step3 */
+      #coletaDados {
+        max-width: 60vw;
+        padding: 40px;
+      }
+    
+      #coletaDados h1 {
+        font-size: 3.5rem;
+        margin-bottom: 6vh;
+      }
+    
+      #coletaDados form label {
+        font-size: 1.2rem;
+        margin: 15px 10px;
+      }
+    
+      #coletaDados form select {
+        font-size: 1.1rem;
+        padding: 10px;
+        margin-bottom: 30px;
+        width: 100%;
+        max-width: 500px;
+      }
+      /* step4 */
+      #step{
+        min-height: 90vh;
+      }
+      #sectionVideos {
+        display: flex;
+        min-height: 89vh;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+    }
+      #listVideos {
+        padding: 80px 0;
+        min-height: 80vh;
+      }
+    
+      #listVideos h1 {
+        font-size: 3.2rem;
+        margin-left: 60px;
+      }
+    
+      .allVideos {
+        width: 60vw;
+        height: 65vh;
+      }
+    
+      .imgCapa {
+        max-width: 50vw;
+      }
+      /* fundo com bolha */
+      .background {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: -1;
+        overflow: hidden;
+      }
+      
+      .blob {
+        position: absolute;
+        width: 800px;
+        height: 800px;
+        border-radius: 50%;
+        filter: blur(100px);
+        opacity: 0.4;
+        animation: orbit 5s linear infinite;
+        transform-origin: center;
+      }
+      
+      .red {
+        background: linear-gradient(to bottom, var(--blue-soft)30%, var(--red-soft)60%, white);
+        top: -150px;
+        left: 190px;
+        animation-delay: 0s;
+      }
+      
+      .blue {
+        background: linear-gradient(to bottom, var(--blue-soft)60%, var(--red-soft)30%, white);
+        bottom: -35px;
+        right: 60px;
+        animation-delay: 1s;
+      }
+      #soParaDarVolume{
+        margin: 10px auto;
+        width: 500px;
+        height: 500px;
+        background: rgb(255, 255, 255);
+        border-radius: 34px;
+        border: 4px solid var(--blue-deep);
+        /* animation: appear linear; */
+
+      }
+      .ButtonStyleMinimalistCertificado {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 99%;
+        height: 99%;
+        background-color: #ffffff;
+        color: var(--blue-deep);
+        /* border: 1px solid var(--blue-deep); */
+        font-size: 3rem;
+      }
+
+      .containerIframe1 {
+        position: relative;
+        width: 90vw;
+        max-height: 200px;
+        border-radius: 16px;
+        margin-bottom: 2%;
+        overflow: hidden;
+        background-color: #000; /* evita fundo branco antes de carregar */
+      }
+      
+            /* perguntas */
+            #ContainerPerguntas {
+                width: 70vw;
+                padding: 32px;
+              }
+            
+              #ContainerPerguntas label {
+                font-size: 1.1rem;
+                padding: 14px 20px;
+              }
+            
+              #containerVideosPerguntas {
+                height: auto;
+                padding-top: 3vh;
+              }
+            
+              .containerIframe {
+                width: 70vw;
+                padding-top: 15%;
+              }
+
+              /* popup */
+              #popupSucessoCss {
+                width: 60vw;
+              }
+            
+              #imgVideoconcluido {
+                width: 30%;
+              }
+            
+              .h2Popup {
+                font-size: 3.2rem;
+              }
+            
+              .popup-content {
+                min-height: 60vh;
+                /* padding: 3rem; */
+              }
+            
+
+              /* listconcluidos */
+              #listConcluded {
+                height: 60vh;
+                & h1 {
+                  font-size: 2.8rem;
+                  margin-left: 60px;
+                }
+              }
+            
+              .allConcludedVideos {
+                width: 60vw;
+                height: auto;
+                flex-direction: row;
+                padding: 20px;
+                & img {
+                  width: 10vw;
+                  height: auto;
+                }
+                & p {
+                  font-size: 1.3rem;
+                }
+              }
+  }

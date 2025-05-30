@@ -167,7 +167,7 @@ document.getElementById('formPergunta').onsubmit = function (e) {
 // 🔹 Cria o container com classe e ID padrão
 const espacoExtra = document.createElement('div');
 espacoExtra.id = 'soParaDarVolume';
-espacoExtra.classList.add('containerIframe');
+espacoExtra.classList.add('containerIframe1');
 
 // 🔹 PASSO 1: Botão "Imprimir Certificado"
 const btnCertificado = document.createElement('button');
