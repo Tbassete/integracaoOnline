@@ -399,6 +399,28 @@
                   font-size: 1.3rem;
                 }
               }
+              /* profile */
+                #Profile {
+    max-width: 60vw;
+    padding: 3rem;
+  }
+
+  .imgUser {
+    width: 200px;
+    height: 200px;
+  }
+
+  h2 {
+    font-size: 1.2rem;
+  }
+
+  #infoEmail h2 {
+    font-size: 1.1rem;
+  }
+
+  .infoGerais {
+    font-size: 1.05rem;
+  }
 
   }
   @media (min-width: 2000px) {
@@ -690,4 +712,31 @@
                   font-size: 1.3rem;
                 }
               }
+              /* profile */
+                #Profile {
+    max-width: 50vw;
+    padding: 4rem;
+  }
+
+  .imgUser {
+    width: 240px;
+    height: 240px;
+  }
+
+  h2 {
+    font-size: 1.4rem;
+  }
+
+  #infoEmail h2 {
+    font-size: 1.3rem;
+  }
+
+  .infoGerais {
+    font-size: 1.2rem;
+  }
+
+  #settings .icon {
+    width: 28px;
+    height: 28px;
+  }
   }
