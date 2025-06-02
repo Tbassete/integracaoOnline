@@ -54,7 +54,7 @@ function showItem(element) {
 
   function hideItem(element) {
     element.style.transition = 'opacity 0.4s ease, height 0.4s ease';
-    element.style.height = element.scrollHeight + 'px';
+    element.style.height = element.scrollHeight + '%';
     element.style.opacity = '1';
   
     requestAnimationFrame(() => {
