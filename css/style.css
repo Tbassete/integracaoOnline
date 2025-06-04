@@ -923,6 +923,7 @@ body {
   flex-direction: column;
   justify-content: top;
   align-items: start;
+  overflow-y: scroll;
   margin-top: 10vh;
   height: 74vh;
   width: 100vw;
