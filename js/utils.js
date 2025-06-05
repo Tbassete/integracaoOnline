@@ -113,10 +113,44 @@ function toggleToRegister() {
 }
 
 function closetep1(){
+  const user = firebase.auth().currentUser;
+  if(user){
+    showUserContent(user)
+  }else{
+    // showItem(step2)
+    console.log("passou aqui close step1")
+    if(step2){
+      console.log("ja existe o step2")
+    }
+  }
     hideItem2(step1)
     hideItem2(white)
     hideItem2(white2)
 }
+
+const list = document.getElementById('listVideos');
+const videos = list.querySelectorAll('.allVideos');
+
+list.addEventListener('scroll', () => {
+  const listRect = list.getBoundingClientRect();
+  const centerY = listRect.top + list.clientHeight / 2;
+
+  videos.forEach(video => {
+    const rect = video.getBoundingClientRect();
+    const videoCenter = rect.top + rect.height / 2;
+    const distance = Math.abs(videoCenter - centerY);
+    const maxDistance = list.clientHeight / 2;
+
+    const norm = Math.min(distance / maxDistance, 1);
+    const scale = 1.0 - norm * 1.0;
+    const gray = 5 + norm * 100;
+
+    video.style.transform = `scale(${scale})`;
+    video.style.webkitTransform = `scale(${scale})`;
+    video.style.filter = `grayscale(${gray}%)`;
+    video.style.webkitFilter = `grayscale(${gray}%)`;
+  });
+});
 
 function showtep1() {
     showItem2(step1);

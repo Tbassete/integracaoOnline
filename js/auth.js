@@ -64,6 +64,7 @@ firebase.auth().onAuthStateChanged(function(user){
     if(user){
         console.log("logou")
         hideItem2(step2)
+        hideItem(step1)
         showUserContent(user)
         hideItem2(loading)
         
@@ -88,8 +89,12 @@ firebase.auth().onAuthStateChanged(function(user){
     });
     }else{
         hideItem2(loading)
+          hideItem(step4)
+  if(step35){
+    hideItem(step35)
+  }
+        showItem2(step1)
         console.log("nao logou")
-        showAuth()
     }
 })
 
