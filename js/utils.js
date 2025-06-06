@@ -117,11 +117,9 @@ function closetep1(){
   if(user){
     showUserContent(user)
   }else{
-    // showItem(step2)
-    console.log("passou aqui close step1")
-    if(step2){
-      console.log("ja existe o step2")
-    }
+
+      showItem(step2)
+
   }
     hideItem2(step1)
     hideItem2(white)

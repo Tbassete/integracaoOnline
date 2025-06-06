@@ -77,7 +77,7 @@ body {
   justify-content: center;
   align-items: center;
   width: 100vw;
-  height: 100dvh;
+  height: 100vh;
   background-color: var(--blue-deep);
   
 
@@ -386,7 +386,7 @@ body {
 
 /*  */
 /* Inicio do step2 */
-#step2{
+#step2css{
   display: flex;
   flex-direction: column;
   justify-content: center;
