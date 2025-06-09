@@ -777,12 +777,31 @@ body {
 
 }
 
-.imgCapa{
-  border-radius: 34px;
-  max-width: 90vw;
-  height: auto;
+.videoWrapper {
+  position: relative;
+  display: inline-block;
 }
 
+.imgCapa {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 34px;
+}
+
+.playIcon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  color: var(--blue-deep);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  opacity: 0.95;
+  filter: drop-shadow(0 0 1px white) 
+          drop-shadow(0 0 2px white) 
+          drop-shadow(0 0 4px white);
+
+}
 /* perguntas */
 #ContainerPerguntas {
   display: flex;
@@ -1089,17 +1108,33 @@ input[type="file"] {
   font-size: 1rem;
 }
 
+/* Wrapper para rolagem horizontal em telas pequenas */
+.wrapper-certificado {
+  overflow-x: auto;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #f0f0f0;
+  padding: 2rem;
+}
+
+/* Certificado fixo A4 paisagem */
 .certificado {
-  max-width: 900px;
-  margin: 2rem auto;
+  margin: auto;
+  width: 79vw;
+  height: 88vh;
   background: #fff;
   border-radius: 12px;
   box-shadow: 0 4px 20px rgba(0,0,0,0.1);
   font-family: 'Segoe UI', sans-serif;
   overflow: hidden;
   position: relative;
+  page-break-inside: avoid;
+  flex-shrink: 0;
 }
 
+/* Faixa superior */
 .certificado-topo {
   height: 40px;
   background: linear-gradient(to right, var(--blue-deep) 80%, var(--red-soft) 20%);
@@ -1107,7 +1142,6 @@ input[type="file"] {
   border-top-right-radius: 12px;
   position: relative;
 }
-
 .certificado-topo::after {
   content: '';
   position: absolute;
@@ -1121,30 +1155,28 @@ input[type="file"] {
   margin-top: 18px;
 }
 
+/* Conteúdo */
 .certificado-conteudo {
   padding: 3rem;
   text-align: center;
-  & ul{
-    & li{
-      text-align: left;
-      text-decoration: none;
-    }
-  }
+}
+.certificado-conteudo ul li {
+  text-align: left;
+  text-decoration: none;
 }
 
+/* Títulos e texto */
 .titulo {
   font-size: 2.5rem;
   font-weight: 700;
   color: #333;
 }
-
 .nome {
   font-size: 1.6rem;
   font-weight: 500;
   color: #333;
   margin-top: 2rem;
 }
-
 .texto {
   font-size: 1rem;
   color: #666;
@@ -1152,27 +1184,28 @@ input[type="file"] {
   line-height: 1.6;
 }
 
+/* Assinatura */
 .assinatura {
   margin-top: 3rem;
   text-align: left;
 }
-
 .assinatura img {
-  width: 160px;
+  width: 100px;
 }
 
+/* Instrutora */
 .instrutora {
   font-weight: 500;
-    font-size: 0.9rem;
+  font-size: 0.9rem;
   margin-top: 0.5rem;
 }
-
 .instrutora span {
   font-size: 0.9rem;
   font-weight: 500;
   color: #555;
 }
 
+/* Logo vertical */
 .logo-vertical {
   position: absolute;
   right: 8px;
@@ -1181,65 +1214,60 @@ input[type="file"] {
   height: auto;
 }
 
+/* Impressão: A4 paisagem sem margens */
+@page {
+  size: A4 landscape;
+  margin: 0;
+}
+
+/* Impressão: A4 paisagem sem margens */
+
+
 @media print {
+  /* Esconde todo o resto da página */
   body * {
     visibility: hidden !important;
   }
 
-  .ButtonStyleMinimalist{
-display: none;
-}
+  /* Esconde o botão de salvar/imprimir */
+  .ButtonStyleMinimalist {
+    display: none !important;
+  }
 
+  /* Deixa visível apenas o container do certificado */
   #certificadoContentUser,
   #certificadoContentUser * {
     visibility: visible !important;
   }
 
+  /* Ajusta o container principal para ocupar exatamente A4 paisagem */
   #certificadoContentUser {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    min-height: 100vh;
-    padding: 0;
-    margin: 0;
-    background: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .certificado {
-    width: 100%;
-    max-width: none;
-    box-shadow: none;
-    margin: 0;
-    padding: 0;
-  }
-
-  .certificado-topo {
-    height: 40px !important;
+    position: static !important;
+    width: 29.7cm !important;
+    height: 21cm !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+    overflow: hidden !important;
     display: block !important;
-    background: linear-gradient(to right, var(--blue-deep) 80%, var(--red-soft) 20%) !important;
+    background: #fff !important;
   }
 
-  .certificado-topo::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 70px;
-    width: 40px;
-    height: 5px;
-    background: var(--red-strong);
-    border: 2px solid white;
-    border-radius: 10px;
-    margin-top: 18px;
+  /* Ajusta o próprio certificado para A4 */
+  .certificado {
+    width: 29.7cm !important;
+    height: 21cm !important;
+    box-shadow: none !important;
+    margin: 0 !important;
+    page-break-after: avoid !important;
   }
-
-  /* .buttonStyleMinimalist {
-    display: none !important;
-  } */
 }
+
+#certificadoContentUser {
+  display: flex;
+  justify-content: center;
+
+}
+
 
 
 /* PROFILE */
@@ -1349,6 +1377,27 @@ h2 {
   letter-spacing: 1px;
 }
 /* controls */
+#botaoVoltar{
+
+  width: 85vw;
+  height: 5vh;
+}
+.botaoVoltar{
+    flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Segoe UI';
+  font-weight: bolder;
+  color: var(--blue-deep);
+  border: none;
+  background-color: transparent;
+  text-decoration: none;
+  /* margin-bottom: 2%; */
+  & svg{
+    width: 25px;
+    height: 25px;
+  }
+}
 #containerMenuControls{
   width: 100vw;
   height: 30px;
@@ -1356,6 +1405,7 @@ h2 {
   justify-content: center;
   align-items: center;
 margin-top: 30px;
+
 /* margin-bottom: ; */
 }
 
@@ -1366,7 +1416,8 @@ margin-top: 30px;
   justify-content: center;
   align-items: center;
   background-color: white;
-  border-radius: 34px;
+  /* border: 1px solid var(--blue-deep); */
+  border-radius: 54px;
   width: fit-content;
   height: 80px;
 }
@@ -1376,8 +1427,8 @@ margin-top: 30px;
   justify-content: center;
   align-items: center;
   padding: 5px;
-  width: 80px;
-  height: 80px;
+  width: 76px;
+  height: 76px;
   border-radius: 50%;
   color: var(--blue-deep);
   background-color: white;
@@ -1487,6 +1538,7 @@ margin-top: 30px;
 
 /* Fundo animado com bolhas */
 .background {
+  overflow-y: hidden;
   position: fixed;
   top: 0;
   left: 0;

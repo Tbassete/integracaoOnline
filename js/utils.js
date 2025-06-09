@@ -116,14 +116,16 @@ function closetep1(){
   const user = firebase.auth().currentUser;
   if(user){
     showUserContent(user)
-  }else{
-
-      showItem(step2)
-
-  }
     hideItem2(step1)
     hideItem2(white)
     hideItem2(white2)
+  }else{
+      hideItem2(step1)
+      hideItem2(white)
+      hideItem2(white2)
+      showItem(step2)
+
+  }
 }
 
 const list = document.getElementById('listVideos');
@@ -187,6 +189,8 @@ function showUserContent(user) {
                      imagePreview.src = user.photoURL ? user.photoURL : 'img/unknownUser.png'
                   }else{
                   // getVideos()
+                  hideItem2(white)
+                  hideItem2(white2)
                   showItem(step4);
                   carregarVideosFirebase()
                   hideItem(step3)

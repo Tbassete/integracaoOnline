@@ -65,10 +65,12 @@ firebase.auth().onAuthStateChanged(function(user){
         console.log("logou")
         hideItem2(step2)
         hideItem(step1)
+        hideItem2(white)
+        hideItem2(white2)
         showUserContent(user)
         hideItem2(loading)
         
-              const dbRef = firebase.database().ref('users/' + user.uid);
+        const dbRef = firebase.database().ref('users/' + user.uid);
 
     dbRef.once('value').then(snapshot => {
       const dados = snapshot.val() || {};
@@ -99,8 +101,8 @@ firebase.auth().onAuthStateChanged(function(user){
 })
 
 function showAuth(){
-
-  showItem(step2)
+  showtep1()
+  // showItem(step2)
   hideItem(step4)
   if(step35){
     hideItem(step35)
@@ -207,7 +209,8 @@ profilePhotoForm.addEventListener('submit', function(event) {
                     uploadPercent.style.display = 'none';
                     hideItem(updatePhoto);
                     hideItem2(loading);
-                    showItem(UserContent);
+                    // showItem(UserContent);
+                  showUserContent(user)
                 });
             }).catch(function(error) {
                 console.error('Erro ao atualizar perfil e database:', error);

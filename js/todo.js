@@ -105,20 +105,36 @@ function carregarVideosFirebase() {
         const video = videoSnap.val();
         const videoId = videoSnap.key;
 
-        // Criação do card
-        const videoDiv = document.createElement('div');
-        videoDiv.classList.add('allVideos');
-        videoDiv.id = videoId;
+// Criação do card
+const videoDiv = document.createElement('div');
+videoDiv.classList.add('allVideos');
+videoDiv.id = videoId;
 
-        const img = document.createElement('img');
-        img.src = video.imgUrl;
-        img.alt = 'Capa do vídeo';
-        img.classList.add('imgCapa');
+// Wrapper para a imagem e o ícone SVG
+const wrapper = document.createElement('div');
+wrapper.classList.add('videoWrapper');
 
-        videoDiv.appendChild(img);
+const img = document.createElement('img');
+img.src = video.imgUrl;
+img.alt = 'Capa do vídeo';
+img.classList.add('imgCapa');
+
+const svg = document.createElement('div');
+
+svg.innerHTML = `
+<svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="currentColor" class="playIcon bi bi-play-circle" class="bi bi-play-circle" viewBox="0 0 16 16">
+  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+  <path d="M6.271 5.055a.5.5 0 0 1 .52.038l3.5 2.5a.5.5 0 0 1 0 .814l-3.5 2.5A.5.5 0 0 1 6 10.5v-5a.5.5 0 0 1 .271-.445"/>
+</svg>
+`;
+
+wrapper.appendChild(img);
+wrapper.appendChild(svg);
+videoDiv.appendChild(wrapper);
 
         // Evento de clique
         videoDiv.addEventListener('click', () => {
+
           // Mostra a div com o iframe + perguntas
           showQuests1()
           let embedUrl = video.linkVideo;
@@ -131,8 +147,7 @@ function carregarVideosFirebase() {
           }
           
           containerIframe.innerHTML = `
-          <iframe width="560" height="315" 
-     
+          <iframe width="560" height="315"  
           src="${embedUrl}" 
           title="YouTube video player" 
           frameborder="0" 
@@ -342,7 +357,7 @@ function carregarVideosConcluidos() {
 
     dbRefVideos.once('value').then(snapshot => {
       // Limpa a lista mantendo o título
-      listConcluded.innerHTML = '<h1>Vídeos Concluídos</h1>';
+      listConcluded.innerHTML = 'asdakda';
 
       snapshot.forEach(videoSnap => {
         const video = videoSnap.val();
@@ -353,6 +368,7 @@ function carregarVideosConcluidos() {
           const videoDiv = document.createElement('div');
           videoDiv.classList.add('allConcludedVideos');
           videoDiv.id = videoId;
+            listConcluded.innerHTML = '<h1>Vídeos Concluídos</h1>';
           videoDiv.onclick = () => {
             showQuests1();
 
@@ -400,6 +416,9 @@ function carregarVideosConcluidos() {
 
           // Insere o vídeo na lista
           listConcluded.appendChild(videoDiv);
+        }else{
+          listConcluded.innerHTML = '<h1>SEUS VÍDEOS CONCLUÍDOS APARECERÃO AQUI!</h1>';
+          
         }
       });
 
