@@ -1145,7 +1145,7 @@ input[type="file"] {
   border-radius: 12px;
   box-shadow: 0 4px 20px rgba(0,0,0,0.1);
   font-family: 'Segoe UI', sans-serif;
-  overflow: hidden;
+  overflow-y: scroll;
   position: relative;
   page-break-inside: avoid;
   flex-shrink: 0;
@@ -1281,8 +1281,8 @@ input[type="file"] {
 
 #certificadoContentUser {
   display: flex;
-  justify-content: center;
-
+  justify-content: left;
+  overflow-y: scroll;
 }
 
 
