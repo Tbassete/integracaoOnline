@@ -419,7 +419,7 @@ function carregarVideosConcluidos() {
           // Insere o vídeo na lista
           listConcluded.appendChild(videoDiv);
         }else{
-          listConcluded.innerHTML = '<h1>SEUS VÍDEOS CONCLUÍDOS APARECERÃO AQUI!</h1>';
+          // listConcluded.innerHTML = '<h1>SEUS VÍDEOS CONCLUÍDOS APARECERÃO AQUI!</h1>';
           
         }
       });
