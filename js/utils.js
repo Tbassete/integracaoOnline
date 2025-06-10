@@ -255,6 +255,7 @@ function showstep4(){
 }
 
 function showConcluded(){
+  hideItem(step3)
     hideItem(userProfile)
     hideItem(sectionVideos)
     hideItem(ShowQuests)
@@ -268,6 +269,7 @@ function showConcluded(){
 }
 
 function showProfile(){
+  hideItem(step3)
     hideItem(sectionConcluded)
     hideItem(sectionVideos)
     hideItem(ShowQuests)
@@ -280,6 +282,7 @@ function showProfile(){
 }
 
 function showVideos(){
+  hideItem(step3)
     hideItem(userProfile)
     hideItem(sectionConcluded)
     hideItem(ShowQuests)
@@ -302,11 +305,13 @@ function ShowFormPostarVideosPerguntas(){
   hideItem(popupSemSucesso)
   hideItem(usersList)
   hideItem(certificadoContentUser)
+  hideItem(step3)
 } 
 
 function showCertificadoUser(){
   showItem(certificadoContentUser)
   hideItem(sectionVideos)
+  hideItem(step3)
 }
 
 function mostrarPopupConcluido() {
@@ -339,6 +344,7 @@ function showQuests1(){
   hideItem(sectionVideos)
   hideItem(userProfile)
   hideItem(sectionConcluded)
+  hideItem(step3)
   showItem(ShowQuests)
 }
 
