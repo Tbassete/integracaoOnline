@@ -357,18 +357,20 @@ function carregarVideosConcluidos() {
 
     dbRefVideos.once('value').then(snapshot => {
       // Limpa a lista mantendo o título
-      listConcluded.innerHTML = 'asdakda';
+      listConcluded.innerHTML = '<h1>Vídeos Concluídos</h1>';
+      console.log(snapshot)
 
       snapshot.forEach(videoSnap => {
         const video = videoSnap.val();
         const videoId = videoSnap.key;
-
+        // listConcluded.innerHTML = '<h1>Vídeos Concluídos</h1>';
         if (concluidos[videoId]) {
+          console.log("video foreach ",video)
           // Criação da estrutura do vídeo concluído
           const videoDiv = document.createElement('div');
           videoDiv.classList.add('allConcludedVideos');
           videoDiv.id = videoId;
-            listConcluded.innerHTML = '<h1>Vídeos Concluídos</h1>';
+            
           videoDiv.onclick = () => {
             showQuests1();
 
