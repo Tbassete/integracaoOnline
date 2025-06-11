@@ -101,123 +101,128 @@ function carregarVideosFirebase() {
     .then(snapshot => {
       listVideos.innerHTML = '<h1>Aqui começa a <br>sua jornada!</h1>'; // limpa e reinsere o título
 
+      // 1) Transforma snapshot em array
+      const videos = [];
       snapshot.forEach(videoSnap => {
         const video = videoSnap.val();
         const videoId = videoSnap.key;
+        videos.push({ video, videoId });
+      });
 
-// Criação do card
-const videoDiv = document.createElement('div');
-videoDiv.classList.add('allVideos');
-videoDiv.id = videoId;
+      // 2) Ordena numericamente pelo campo "ordem"
+      videos.sort((a, b) => Number(a.video.ordem) - Number(b.video.ordem));
 
-// Wrapper para a imagem e o ícone SVG
-const wrapper = document.createElement('div');
-wrapper.classList.add('videoWrapper');
+      // 3) Renderiza na ordem correta
+      videos.forEach(({ video, videoId }) => {
+        // Criação do card
+        const videoDiv = document.createElement('div');
+        videoDiv.classList.add('allVideos');
+        videoDiv.id = videoId;
 
-const img = document.createElement('img');
-img.src = video.imgUrl;
-img.alt = 'Capa do vídeo';
-img.classList.add('imgCapa');
+        // Wrapper para a imagem e o ícone SVG
+        const wrapper = document.createElement('div');
+        wrapper.classList.add('videoWrapper');
 
-const svg = document.createElement('div');
+        const img = document.createElement('img');
+        img.src = video.imgUrl;
+        img.alt = 'Capa do vídeo';
+        img.classList.add('imgCapa');
 
-svg.innerHTML = `
-<svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="currentColor" class="playIcon bi bi-play-circle" class="bi bi-play-circle" viewBox="0 0 16 16">
+        const svg = document.createElement('div');
+        svg.innerHTML = `
+<svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="currentColor" class="playIcon bi bi-play-circle" viewBox="0 0 16 16">
   <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
   <path d="M6.271 5.055a.5.5 0 0 1 .52.038l3.5 2.5a.5.5 0 0 1 0 .814l-3.5 2.5A.5.5 0 0 1 6 10.5v-5a.5.5 0 0 1 .271-.445"/>
 </svg>
 `;
 
-wrapper.appendChild(img);
-wrapper.appendChild(svg);
-videoDiv.appendChild(wrapper);
+        wrapper.appendChild(img);
+        wrapper.appendChild(svg);
+        videoDiv.appendChild(wrapper);
 
         // Evento de clique
         videoDiv.addEventListener('click', () => {
+          showQuests1();
 
-          // Mostra a div com o iframe + perguntas
-          showQuests1()
           let embedUrl = video.linkVideo;
-
           if (embedUrl.includes('watch?v=')) {
             embedUrl = embedUrl.replace('watch?v=', 'embed/');
           } else if (embedUrl.includes('youtu.be/')) {
-            const videoId = embedUrl.split('youtu.be/')[1].split('?')[0];
-            embedUrl = `https://www.youtube.com/embed/${videoId}`;
+            const vidId = embedUrl.split('youtu.be/')[1].split('?')[0];
+            embedUrl = `https://www.youtube.com/embed/${vidId}`;
           }
-          
-          containerIframe.innerHTML = `
-          <iframe width="560" height="315"  
-          src="${embedUrl}" 
-          title="YouTube video player" 
-          frameborder="0" 
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-          referrerpolicy="strict-origin-when-cross-origin" 
-          allowfullscreen>
-          </iframe>
-          `;
-          
-containerPerguntas.innerHTML = `
-  <h2>${video.pergunta}</h2>
-  <form id="formPergunta">
-    <label><input type="radio" name="pergunta" value="1">${video.resposta1}</label>
-    <label><input type="radio" name="pergunta" value="2">${video.resposta2}</label>
-    <label><input type="radio" name="pergunta" value="3">${video.resposta3}</label>
-    <label><input type="radio" name="pergunta" value="4">${video.resposta4}</label>
-    <p id="responderRespostas"></p>
-    <button type="submit" class="ButtonStyleBlue">CONCLUIR</button>
-  </form>
-`;
 
-document.getElementById('formPergunta').onsubmit = function (e) {
-  e.preventDefault();
-  verificarResposta(videoId, video.correta); // ✅ usa direto, sem redeclarar
-};
+          containerIframe.innerHTML = `
+            <iframe width="560" height="315"
+              src="${embedUrl}"
+              title="YouTube video player"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerpolicy="strict-origin-when-cross-origin"
+              allowfullscreen>
+            </iframe>
+          `;
+
+          containerPerguntas.innerHTML = `
+            <h2>${video.pergunta}</h2>
+            <form id="formPergunta">
+              <label><input type="radio" name="pergunta" value="1">${video.resposta1}</label>
+              <label><input type="radio" name="pergunta" value="2">${video.resposta2}</label>
+              <label><input type="radio" name="pergunta" value="3">${video.resposta3}</label>
+              <label><input type="radio" name="pergunta" value="4">${video.resposta4}</label>
+              <p id="responderRespostas"></p>
+              <button type="submit" class="ButtonStyleBlue">CONCLUIR</button>
+            </form>
+          `;
+
+          document.getElementById('formPergunta').onsubmit = function (e) {
+            e.preventDefault();
+            verificarResposta(videoId, video.correta);
+          };
         });
 
         // Adiciona o card à lista
         listVideos.appendChild(videoDiv);
       });
 
-// 🔹 Cria o container com classe e ID padrão
-const espacoExtra = document.createElement('div');
-espacoExtra.id = 'soParaDarVolume';
-espacoExtra.classList.add('containerIframe1');
+      // 🔹 Cria o container com classe e ID padrão
+      const espacoExtra = document.createElement('div');
+      espacoExtra.id = 'soParaDarVolume';
+      espacoExtra.classList.add('containerIframe1');
 
-// 🔹 PASSO 1: Botão "Imprimir Certificado"
-const btnCertificado = document.createElement('button');
-btnCertificado.textContent = 'Imprimir Certificado';
-btnCertificado.onclick = imprimirCertificado;
-btnCertificado.id = 'btnImprimirCertificado';
-btnCertificado.classList.add('ButtonStyleMinimalistCertificado');
+      // 🔹 PASSO 1: Botão "Imprimir Certificado"
+      const btnCertificado = document.createElement('button');
+      btnCertificado.textContent = 'Imprimir Certificado';
+      btnCertificado.onclick = imprimirCertificado;
+      btnCertificado.id = 'btnImprimirCertificado';
+      btnCertificado.classList.add('ButtonStyleMinimalistCertificado');
 
+      const certificadoContainer = document.createElement('div');
+      certificadoContainer.id = 'certificadoContainer';
+      certificadoContainer.classList.add('startHidden');
+      certificadoContainer.innerHTML = `
+        <div id="certificadoContent"></div>
+        <button onclick="window.print()">Imprimir agora</button>
+      `;
 
-const certificadoContainer = document.createElement('div');
-certificadoContainer.id = 'certificadoContainer';
-certificadoContainer.classList.add('startHidden');
+      // 🔹 PASSO 3: Área de resposta
+      const responder = document.createElement('div');
+      responder.id = 'responderCertificado';
+      responder.style.marginTop = '1rem';
 
-certificadoContainer.innerHTML = `
-  <div id="certificadoContent"></div>
-  <button onclick="window.print()">Imprimir agora</button>
-`;
-
-// 🔹 PASSO 3: Área de resposta (caso não tenha concluído todos os vídeos)
-const responder = document.createElement('div');
-responder.id = 'responderCertificado';
-responder.style.marginTop = '1rem';
-
-// 🔹 Adiciona tudo dentro do espacoExtra
-espacoExtra.appendChild(btnCertificado);
-espacoExtra.appendChild(certificadoContainer);
-espacoExtra.appendChild(responder);
-
-// 🔹 Adiciona ao DOM principal
-listVideos.appendChild(espacoExtra);
+      espacoExtra.appendChild(btnCertificado);
+      espacoExtra.appendChild(certificadoContainer);
+      espacoExtra.appendChild(responder);
+      listVideos.appendChild(espacoExtra);
     })
     .catch(error => {
       console.error('Erro ao buscar vídeos:', error);
     });
 }
+
+
+
+// fim do carregar videos
 
 function verificarResposta(videoId, respostaCorreta) {
   const user = firebase.auth().currentUser;
@@ -293,10 +298,14 @@ const certificadoHTML = `
         realizado com sucesso por meio da nossa plataforma online, em ${usercert.dataConclusaoUltimoVideo}
       </p>
       <p class="texto"><strong>Treinamentos realizados:</strong>${listaVideosHTML}</p>
+            <div id="assinaturaCaneta">
+      <img class="assinaturaPen" src="img/assinatura.png">
+      </div>
       <div class="assinatura">
         <img class="logo-vertical" src="img/sapamega.png">
-        <p class="instrutora">Setor de Recursos Humanos<br> <span>Sapa-Megatech do Brasil</span></p>
+        <p class="instrutora">Gerência de Recursos Humanos<br> <span>Sapa-Megatech do Brasil</span></p>
       </div>
+
     </div>
   </div>
 `;
@@ -584,11 +593,16 @@ function imprimirCertificadoUsers(uuid) {
             realizado com sucesso por meio da nossa plataforma online, em ${uuid.dataConclusaoUltimoVideo}
           </p>
           <p class="texto"><strong>Treinamentos realizados:</strong>${listaVideosHTML}</p>
+                <div id="assinaturaCaneta">
+      <img class="assinaturaPen" src="img/assinatura.png">
+      </div>
           <div class="assinatura">
             <img class="logo-vertical" src="img/sapamega.png">
-            <p class="instrutora">Recursos Humanos<br> <span>Sapa-Megatech do Brasil</span></p>
+            <p class="instrutora">Gerência de Recursos Humanos<br> <span>Sapa-Megatech do Brasil</span></p>
 
           </div>
+
+
         </div>
       </div>
     `;

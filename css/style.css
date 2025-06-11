@@ -9,6 +9,26 @@
   --blue-soft: #064267;
   --red-soft: #ae1100;
 }
+
+.input-group {
+  display: flex;
+  flex-direction: row;
+  /* position: relative; */
+  /* display: inline-block; */
+}
+.toggle-password {
+  /* position: absolute */
+  /* right: 10px; */
+  /* top: 60%; */
+  /* transform: translateY(-50%); */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+}
+
 body {
   margin: 0px;
   padding: 0px;
@@ -821,47 +841,53 @@ body {
     margin-top: 16px;
   }
 
-  & label {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 10px 14px;
-    border-radius: 18px;
-    background-color: rgba(255, 255, 255, 0.7);
-    transition: all 0.3s ease;
-    cursor: pointer;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  }
+& label {
+  display: flex;
+  align-items: center;
+  text-align: left;
+  gap: 12px;
+  padding: 10px 14px;
+  border-radius: 34px;
+  background: rgba(255,255,255,0.7);
+  cursor: pointer;
 
-  & label:hover {
-    background-color: rgba(255, 255, 255, 0.9);
-  }
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
 
-  & input[type="radio"] {
-    appearance: none;
-    width: 20px;
-    height: 20px;
-    border: 2px solid #555;
-    border-radius: 50%;
-    position: relative;
-    transition: all 0.2s ease;
-  }
+& input[type="radio"] {
+  /* limpa aparência nativa e impede stretch no flex */
+  -webkit-appearance: none;
+  appearance: none;
+  margin: 0;
+  padding: 0;
+  flex-shrink: 0;
 
-  & input[type="radio"]:checked {
-    border-color: #007bff;
-    background-color: #007bff;
-  }
+  /* tamanho fixo e borda */
+  width: 20px;
+  height: 20px;
+  box-sizing: border-box;
+  border: 2px solid #555;
+  border-radius: 50%;
 
-  & input[type="radio"]:checked::before {
-    content: '';
-    position: absolute;
-    top: 4px;
-    left: 4px;
-    width: 8px;
-    height: 8px;
-    background: white;
-    border-radius: 50%;
-  }
+  /* fundo transparente e clip para o gradient não invadir a borda */
+  background-color: transparent;
+  background-clip: content-box;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+& input[type="radio"]:checked {
+  /* círculo azul */
+  background-color: #007bff;
+  border-color:    #007bff;
+
+  /* pontinho branco central */
+  background-image: radial-gradient(circle, #fff 0%, #fff 50%, transparent 51%);
+  background-size: 8px 8px;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
 }
 
 #responderRespostas{
@@ -1202,6 +1228,14 @@ input[type="file"] {
 }
 
 /* Assinatura */
+#assinaturaCaneta{
+  width: 60px;
+  height: auto;
+}
+.assinaturaPen{
+  width: 170px;
+  height: auto;
+}
 .assinatura {
   margin-top: 2rem;
   text-align: left;
