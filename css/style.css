@@ -1291,25 +1291,30 @@ input[type="file"] {
     visibility: visible !important;
   }
 
-  /* Ajusta o container principal para ocupar exatamente A4 paisagem */
   #certificadoContentUser {
+    display: block !important;
     position: static !important;
     width: 29.7cm !important;
     height: 21cm !important;
     margin: 0 auto !important;
     padding: 0 !important;
-    overflow: hidden !important;
-    display: block !important;
-    background: #fff !important;
+    overflow: visible !important; /* de hidden para visible */
   }
 
-  /* Ajusta o próprio certificado para A4 */
+  /* 2) Certificado sem scroll nem sombras */
   .certificado {
     width: 29.7cm !important;
     height: 21cm !important;
     box-shadow: none !important;
     margin: 0 !important;
+    overflow: visible !important; /* elimina o scroll interno */
     page-break-after: avoid !important;
+  }
+
+  /* 3) Remove quaisquer flex/aligns que possam bagunçar */
+  .wrapper-certificado {
+    display: block !important;
+    overflow: visible !important;
   }
 }
 
