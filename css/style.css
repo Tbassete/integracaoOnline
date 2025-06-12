@@ -585,7 +585,8 @@ body {
     flex-direction: column;
 
     & Input{
-      width: 80vw;
+      margin-left: 9%;
+      width: 70vw;
       height: 5vh;
       border-radius: 34px;
       padding: 0px 0px 0px 0px;
