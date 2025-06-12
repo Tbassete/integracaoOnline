@@ -183,12 +183,12 @@ function showUserContent(user) {
             const usersData = snapshot.val();
 
             if (usersData && usersData[userId] && usersData[userId].dataUpdated === true) {
-                if (user.emailVerified) {
+                // if (user.emailVerified) {
                   if(!user.photoURL){
                      showFormUpdateImgProfile()
                      imagePreview.src = user.photoURL ? user.photoURL : 'img/unknownUser.png'
                   }else{
-                  // getVideos()
+
                   hideItem2(white)
                   hideItem2(white2)
                   showItem(step4);
@@ -196,7 +196,7 @@ function showUserContent(user) {
                   hideItem(step3)
                   hideItem2(loading)
                   
-                  // usersData[userId].dataUpdated
+                 
                     
                     userImg.src = user.photoURL ? user.photoURL : 'img/unknownUser.png'
                     userName.innerHTML = user.displayName
@@ -214,12 +214,12 @@ function showUserContent(user) {
                     }
                     // console.log(cargoUser2)
                   }
-                }else{
-                  hideItem(step3)
-                  showItem(step35);
-                  hideItem2(loading)
-                  sendEmailVerification()
-                }
+                // }else{
+                //   hideItem(step3)
+                //   showItem(step35);
+                //   hideItem2(loading)
+                //   sendEmailVerification()
+                // }
             } else {
                 showItem(step3);
                 hideItem2(loading)
