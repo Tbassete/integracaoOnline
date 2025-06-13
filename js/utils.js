@@ -161,7 +161,7 @@ function showtep1() {
 
   
 // Chama a função a cada 1 hora
-setInterval(showtep1, 3600000);
+// setInterval(showtep1, 3600000);
 
 function closeUpdates(){
   const auth = firebase.auth();
@@ -188,7 +188,7 @@ function showUserContent(user) {
                      showFormUpdateImgProfile()
                      imagePreview.src = user.photoURL ? user.photoURL : 'img/unknownUser.png'
                   }else{
-
+                  // getVideos()
                   hideItem2(white)
                   hideItem2(white2)
                   showItem(step4);
