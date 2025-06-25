@@ -91,99 +91,164 @@ function adicionarVideosPerguntas() {
   // funções que exibem os videos e perguntas na tela.
 
 function carregarVideosFirebase() {
+
   const dbRefVideos = firebase.database().ref('videos');
   const listVideos = document.getElementById('listVideos');
   const showQuests = document.getElementById('showQuests');
   const containerIframe = showQuests.querySelector('.containerIframe');
   const containerPerguntas = document.getElementById('ContainerPerguntas');
 
-  dbRefVideos.once('value')
-    .then(snapshot => {
-      listVideos.innerHTML = '<h1>Aqui começa a <br>sua jornada!</h1>'; // limpa e reinsere o título
+const progressoVideos = {};
 
-      // 1) Transforma snapshot em array
-      const videos = [];
-      snapshot.forEach(videoSnap => {
-        const video = videoSnap.val();
-        const videoId = videoSnap.key;
-        videos.push({ video, videoId });
-      });
+dbRefVideos.once('value').then(snapshot => {
+  listVideos.innerHTML = '<h1>Aqui começa a <br>sua jornada!</h1>';
 
-      // 2) Ordena numericamente pelo campo "ordem"
-      videos.sort((a, b) => Number(a.video.ordem) - Number(b.video.ordem));
+  const videos = [];
+  snapshot.forEach(videoSnap => {
+    const video = videoSnap.val();
+    const videoId = videoSnap.key;
+    videos.push({ video, videoId });
+  });
 
-      // 3) Renderiza na ordem correta
-      videos.forEach(({ video, videoId }) => {
-        // Criação do card
-        const videoDiv = document.createElement('div');
-        videoDiv.classList.add('allVideos');
-        videoDiv.id = videoId;
+  videos.sort((a, b) => Number(a.video.ordem) - Number(b.video.ordem));
 
-        // Wrapper para a imagem e o ícone SVG
-        const wrapper = document.createElement('div');
-        wrapper.classList.add('videoWrapper');
+  let playerCount = 0;
 
-        const img = document.createElement('img');
-        img.src = video.imgUrl;
-        img.alt = 'Capa do vídeo';
-        img.classList.add('imgCapa');
+  videos.forEach(({ video, videoId }) => {
+    const videoDiv = document.createElement('div');
+    videoDiv.classList.add('allVideos');
+    videoDiv.id = videoId;
 
-        const svg = document.createElement('div');
-        svg.innerHTML = `
+    const wrapper = document.createElement('div');
+    wrapper.classList.add('videoWrapper');
+
+    const img = document.createElement('img');
+    img.src = video.imgUrl;
+    img.alt = 'Capa do vídeo';
+    img.classList.add('imgCapa');
+
+    const svg = document.createElement('div');
+    svg.innerHTML = `
 <svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="currentColor" class="playIcon bi bi-play-circle" viewBox="0 0 16 16">
   <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
   <path d="M6.271 5.055a.5.5 0 0 1 .52.038l3.5 2.5a.5.5 0 0 1 0 .814l-3.5 2.5A.5.5 0 0 1 6 10.5v-5a.5.5 0 0 1 .271-.445"/>
 </svg>
 `;
 
-        wrapper.appendChild(img);
-        wrapper.appendChild(svg);
-        videoDiv.appendChild(wrapper);
+    wrapper.appendChild(img);
+    wrapper.appendChild(svg);
+    videoDiv.appendChild(wrapper);
 
-        // Evento de clique
-        videoDiv.addEventListener('click', () => {
-          showQuests1();
+    videoDiv.addEventListener('click', () => {
+      showQuests1();
 
-          let embedUrl = video.linkVideo;
-          if (embedUrl.includes('watch?v=')) {
-            embedUrl = embedUrl.replace('watch?v=', 'embed/');
-          } else if (embedUrl.includes('youtu.be/')) {
-            const vidId = embedUrl.split('youtu.be/')[1].split('?')[0];
-            embedUrl = `https://www.youtube.com/embed/${vidId}`;
+      let embedUrl = video.linkVideo;
+      if (embedUrl.includes('watch?v=')) {
+        embedUrl = embedUrl.replace('watch?v=', 'embed/');
+      } else if (embedUrl.includes('youtu.be/')) {
+        const vidId = embedUrl.split('youtu.be/')[1].split('?')[0];
+        embedUrl = `https://www.youtube.com/embed/${vidId}`;
+      }
+
+      playerCount++;
+      const playerDivId = `youtube-player-${playerCount}`;
+      containerIframe.innerHTML = `<div id="${playerDivId}"></div>`;
+
+      // Já define o formulário como desabilitado, pode ser habilitado abaixo
+      let liberado = !!progressoVideos[videoId];
+
+      containerPerguntas.innerHTML = `
+        <h2>${video.pergunta}</h2>
+        <form id="formPergunta">
+          <label><input type="radio" name="pergunta" value="1">${video.resposta1}</label>
+          <label><input type="radio" name="pergunta" value="2">${video.resposta2}</label>
+          <label><input type="radio" name="pergunta" value="3">${video.resposta3}</label>
+          <label><input type="radio" name="pergunta" value="4">${video.resposta4}</label>
+          <p id="responderRespostas" style="color:#2574fc;font-weight:600;margin:12px 0;"></p>
+          <button type="submit" class="ButtonStyleBlue"${liberado ? '' : ' disabled'}>CONCLUIR</button>
+        </form>
+      `;
+
+      if (liberado) {
+        document.getElementById('responderRespostas').innerText = 'Você já pode responder!';
+      }
+
+      let ytPlayer = null;
+      let ytInterval = null;
+
+      function getYouTubeId(url) {
+        const match = url.match(/\/embed\/([A-Za-z0-9_-]{11})/);
+        return match ? match[1] : null;
+      }
+
+      function initPlayer() {
+        ytPlayer = new YT.Player(playerDivId, {
+          height: '315',
+          width: '560',
+          videoId: getYouTubeId(embedUrl),
+          events: {
+            'onStateChange': onPlayerStateChange
           }
-
-          containerIframe.innerHTML = `
-            <iframe width="560" height="315"
-              src="${embedUrl}"
-              title="YouTube video player"
-              frameborder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              referrerpolicy="strict-origin-when-cross-origin"
-              allowfullscreen>
-            </iframe>
-          `;
-
-          containerPerguntas.innerHTML = `
-            <h2>${video.pergunta}</h2>
-            <form id="formPergunta">
-              <label><input type="radio" name="pergunta" value="1">${video.resposta1}</label>
-              <label><input type="radio" name="pergunta" value="2">${video.resposta2}</label>
-              <label><input type="radio" name="pergunta" value="3">${video.resposta3}</label>
-              <label><input type="radio" name="pergunta" value="4">${video.resposta4}</label>
-              <p id="responderRespostas"></p>
-              <button type="submit" class="ButtonStyleBlue">CONCLUIR</button>
-            </form>
-          `;
-
-          document.getElementById('formPergunta').onsubmit = function (e) {
-            e.preventDefault();
-            verificarResposta(videoId, video.correta);
-          };
         });
+      }
 
-        // Adiciona o card à lista
-        listVideos.appendChild(videoDiv);
-      });
+      if (window.YT && YT.Player) {
+        initPlayer();
+      } else {
+        let interval = setInterval(() => {
+          if (window.YT && YT.Player) {
+            clearInterval(interval);
+            initPlayer();
+          }
+        }, 100);
+      }
+
+      function onPlayerStateChange(event) {
+        if (progressoVideos[videoId]) return; // Já liberado, não precisa monitorar mais
+
+        if (event.data === YT.PlayerState.PLAYING) {
+          if (ytInterval) clearInterval(ytInterval);
+          ytInterval = setInterval(checkProgress, 1000);
+        } else if (event.data === YT.PlayerState.ENDED) {
+          checkProgress(true);
+          if (ytInterval) clearInterval(ytInterval);
+        } else if (event.data === YT.PlayerState.PAUSED) {
+          if (ytInterval) clearInterval(ytInterval);
+        }
+      }
+
+function checkProgress(forceEnd = false) {
+  const form = document.getElementById('formPergunta');
+  const responderBtn = form.querySelector('.ButtonStyleBlue');
+const responderMsg = form.querySelector('#responderRespostas');
+  if (!ytPlayer || typeof ytPlayer.getDuration !== "function") return;
+  let tempoAtual = ytPlayer.getCurrentTime();
+  let duracao = ytPlayer.getDuration();
+  let porcentagem = (tempoAtual / duracao) * 100;
+
+  if (porcentagem >= 90 || forceEnd) {
+    progressoVideos[videoId] = true;
+    responderBtn.disabled = false; // <-- agora pega o botão correto
+    responderMsg.innerText = 'Você já pode responder!';
+    if (ytInterval) clearInterval(ytInterval);
+  } else {
+    responderBtn.disabled = true;
+    responderMsg.innerText = `Assista pelo menos 90% do vídeo para liberar as respostas. (${porcentagem.toFixed(0)}%)`;
+  }
+}
+
+      document.getElementById('formPergunta').onsubmit = function (e) {
+        e.preventDefault();
+        if (progressoVideos[videoId]) {
+          verificarResposta(videoId, video.correta);
+        } else {
+          document.getElementById('responderRespostas').innerText = 'Precisa assistir ao menos 70% do vídeo antes de responder!';
+        }
+      };
+    });
+
+    listVideos.appendChild(videoDiv);
+  });
 
       // 🔹 Cria o container com classe e ID padrão
       const espacoExtra = document.createElement('div');
@@ -215,6 +280,7 @@ function carregarVideosFirebase() {
       espacoExtra.appendChild(responder);
       listVideos.appendChild(espacoExtra);
     })
+
     .catch(error => {
       console.error('Erro ao buscar vídeos:', error);
     });
@@ -441,7 +507,103 @@ function carregarVideosConcluidos() {
     console.error('Erro ao carregar vídeos concluídos:', error);
   });
 }
+const searchInput = document.getElementById('searchUser');
+const container = document.getElementById('usersContainer');
 
+searchInput.onkeyup = function () {
+  const termo = searchInput.value.trim().toUpperCase();
+
+  if (termo !== '') {
+    container.innerHTML = 'Buscando...';
+
+    firebase.database().ref('users')
+      .orderByChild('nomeCompletoUpperCase')
+      .startAt(termo)
+      .endAt(termo + '\uf8ff')
+      .once('value')
+      .then(function (snapshot) {
+        const usuarios = [];
+        snapshot.forEach(function (userSnap) {
+          const user = userSnap.val();
+          const uid = userSnap.key;
+
+          usuarios.push({
+            uid,
+            foto: user.photoURL || 'https://www.w3schools.com/howto/img_avatar.png',
+            nome: user.nomeCompleto || 'Sem nome',
+            admissao: user.admissao || '',
+            cargo: user.cargo,
+            isAdmin: user.isAdmin || false,
+            dataConclusaoUltimoVideo: user.dataConclusaoUltimoVideo || 'sem data',
+            concluidos: user.videosConcluded ? Object.keys(user.videosConcluded).length : 0
+          });
+        });
+
+        exibirUsuarios(usuarios);
+      })
+      .catch(function (error) {
+        console.error('Erro ao buscar usuários:', error);
+        container.innerHTML = 'Erro ao buscar usuários.';
+      });
+  } else {
+    // Se o campo de busca estiver vazio, traz todos
+    listarTodosUsuarios();
+  }
+};
+
+function exibirUsuarios(usuarios) {
+  const container = document.getElementById('usersContainer');
+  container.innerHTML = '';
+
+  if (!usuarios.length) {
+    container.innerHTML = '<p>Nenhum usuário encontrado.</p>';
+    return;
+  }
+
+  usuarios.forEach(u => {
+    const div = document.createElement('div');
+    div.className = 'userCard';
+
+    div.innerHTML = `
+      <img class="imgsUsers" src="${u.foto}">
+      <p><strong>${u.nome}</strong></p>
+      <p>Admissão: ${u.admissao}</p>
+      <p>Cargo: ${u.cargo}</p>
+      <p>Status: ${u.isAdmin ? 'Admin' : 'Usuário comum'}</p>
+      <p>Vídeos concluídos: ${u.concluidos}</p>
+      <hr>
+    `;
+
+    // Botão: Imprimir certificado
+    if (u.concluidos) {
+      const btnCertificado = document.createElement('button');
+      btnCertificado.textContent = 'Imprimir Certificado';
+      btnCertificado.className = 'ButtonStyleMinimalist';
+      btnCertificado.addEventListener('click', () => imprimirCertificadoUsers(u));
+      div.appendChild(btnCertificado);
+    }
+
+    // Botão: Remover admin
+    if (u.isAdmin) {
+      const btnRemoverAdmin = document.createElement('button');
+      btnRemoverAdmin.textContent = 'Remover Admin';
+      btnRemoverAdmin.className = 'ButtonStyleMinimalist';
+      btnRemoverAdmin.addEventListener('click', () => removerAdmin(u.uid));
+      div.appendChild(btnRemoverAdmin);
+    }
+
+    // Botão: Tornar admin
+    if (!u.isAdmin) {
+      const btnTornarAdmin = document.createElement('button');
+      btnTornarAdmin.textContent = 'Tornar Admin';
+      btnTornarAdmin.className = 'ButtonStyleMinimalist';
+      btnTornarAdmin.addEventListener('click', () => tornarAdmin(u.uid));
+      div.appendChild(btnTornarAdmin);
+    }
+
+    container.appendChild(div);
+  });
+}
 
 async function listarTodosUsuarios(filtro = null) {
   const db = firebase.database();
